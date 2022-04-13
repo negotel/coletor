@@ -98,12 +98,29 @@ class Api extends Controller
 
                 if ($remessa->status == 'aberto') {
                     $results['total'] += 1;
-                    $results['data']['abertos'][] = $remessa->data();
+                    $results['data']['abertos'][] = [
+                        "id" => $remessa->id,
+                        "status" => $remessa->status,
+                        "remessa" =>  $remessa->remessa,
+                        "nome" =>  $remessa->nome,
+                        "n_pedido" =>  $remessa->n_pedido,
+                        "data_coleta" => ''
+                    ];
                 }
 
                 if ($remessa->status == 'coletado') {
                     $results['totalColetado'] += 1;
-                    $results['data']['coletados'][] = $remessa->data();
+
+                    $data_coleta = (new AppConferenceLog())->find('n_pedido = :np', "np={$remessa->n_pedido}")->fetch();
+
+                    $results['data']['coletados'][] = [
+                        "id" => $remessa->id,
+                        "status" => $remessa->status,
+                        "remessa" =>  $remessa->remessa,
+                        "nome" =>  $remessa->nome,
+                        "n_pedido" =>  $remessa->n_pedido,
+                        "data_coleta" => $data_coleta->data_log
+                    ];
                 }
 
 
@@ -118,8 +135,10 @@ class Api extends Controller
     public function coleta_remessa(?array $data)
     {
         $remessas = (new AppConferenceItem())->find("n_pedido = :r", "r={$data['n_pedido']}")->fetch();
+
         if ($remessas) {
             if ($remessas->status == 'aberto') {
+
                 //muda para aberto
                 $coletor = (new AppConferenceItem())->findById($remessas->id);
                 $coletor->status = 'coletado';
