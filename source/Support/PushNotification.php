@@ -57,6 +57,7 @@ class PushNotification
         $fields['notification'] = [
             "title" => $this->title,
             "body" => $this->body,
+            "icon" => 'https://i.imgur.com/7J6HTD0.png',
             'sound' => 1
         ];
 
