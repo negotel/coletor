@@ -191,7 +191,13 @@ class Api extends Controller
                 ]);
             }
             $total_coletado = (new AppConferenceLog())->find('remessa')->count('remessa');
+            
             if ($total_coletado == 0) {
+                (new PushNotification(
+                    'Coleta Iniciada',
+                    "O operador iniciou a coleta no cliente."
+                ))->run();
+            }else{
                 (new PushNotification(
                     'Coleta Iniciada',
                     "O operador iniciou a coleta no cliente."
