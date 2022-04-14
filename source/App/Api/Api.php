@@ -190,6 +190,13 @@ class Api extends Controller
                     'message' => 'este objeto ja foi coletado!'
                 ]);
             }
+            $total_coletado = (new AppConferenceLog())->find('remessa')->count('remessa');
+            if ($total_coletado == 0) {
+                (new PushNotification(
+                    'Coleta Iniciada',
+                    "O operador iniciou a coleta no cliente."
+                ))->run();
+            }
 
             (new AppConferenceLog())->log(['user_id' => 1, 'n_pedido' => $data['n_pedido'], 'remessa' => $remessas->remessa]);
         } else {
