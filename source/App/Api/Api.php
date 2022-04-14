@@ -227,7 +227,10 @@ class Api extends Controller
             array_push($chave_push,  $chave->token_push_notification);
         }
 
-        var_dump($chave_push);
+        (new PushNotification(
+            'Nova remessa adicionada',
+            "Teste"
+        ))->run();
     }
 
     /**
