@@ -78,7 +78,22 @@ class Api extends Controller
 
     public function get_data_remessa_item(?array $data)
     {
-        $remessas = (new AppConferenceItem())->find("remessa = :r", "r={$data['remessa']}", "id, status, remessa, nome, n_pedido")->order("status")->fetch(true);
+
+        $data_coleta = (new AppConferenceLog())
+            ->join()
+            ->find(
+                'app_conference_item.remessa = :np',
+                "np={$data['remessa']}",
+                "app_conference_item.id, app_conference_item.`status`,
+            app_conference_item.remessa,
+            app_conference_item.nome,
+            app_conference_item.n_pedido, 
+            app_conference_item.data_log, 
+            app_conference_log.data_log as data_coletado"
+            )
+            ->order('app_conference_log.data_log DESC')
+            ->fetch(true);
+
 
         $results = [
             'result' => false,
@@ -92,26 +107,25 @@ class Api extends Controller
             'message' => null
         ];
 
-        if ($remessas) {
-            foreach ($remessas as $remessa) {
-                //$results['data'][] = $remessa->data();
+        if ($data_coleta) {
+            foreach ($data_coleta as $remessa) {
 
                 if ($remessa->status == 'aberto') {
+
                     $results['total'] += 1;
+
                     $results['data']['abertos'][] = [
                         "id" => $remessa->id,
                         "status" => $remessa->status,
                         "remessa" =>  $remessa->remessa,
                         "nome" =>  $remessa->nome,
                         "n_pedido" =>  $remessa->n_pedido,
-                        "data_coleta" => ''
+                        "data_coleta" => $remessa->data_coletado
                     ];
                 }
 
                 if ($remessa->status == 'coletado') {
                     $results['totalColetado'] += 1;
-
-                    $data_coleta = (new AppConferenceLog())->find('n_pedido = :np', "np={$remessa->n_pedido}")->fetch();
 
                     $results['data']['coletados'][] = [
                         "id" => $remessa->id,
@@ -119,16 +133,15 @@ class Api extends Controller
                         "remessa" =>  $remessa->remessa,
                         "nome" =>  $remessa->nome,
                         "n_pedido" =>  $remessa->n_pedido,
-                        "data_coleta" => $data_coleta->data_log
+                        "data_coleta" => $remessa->data_coletado
                     ];
                 }
 
-
                 $results['result'] = true;
             }
+
             $results['nRemessa'] = $data['remessa'];
         }
-
         $this->back($results);
     }
 
@@ -191,13 +204,8 @@ class Api extends Controller
                 ]);
             }
             $total_coletado = (new AppConferenceLog())->find('remessa')->count('remessa');
-            
+
             if ($total_coletado == 0) {
-                (new PushNotification(
-                    'Coleta Iniciada',
-                    "O operador iniciou a coleta no cliente."
-                ))->run();
-            }else{
                 (new PushNotification(
                     'Coleta Iniciada',
                     "O operador iniciou a coleta no cliente."
@@ -233,7 +241,7 @@ class Api extends Controller
     public function push()
     {
 
-        $chave_push = [];
+        /*  $chave_push = [];
 
         $chaves = (new AppPushNotificationRegistration())->getData();
         foreach ($chaves as $chave) {
@@ -243,7 +251,12 @@ class Api extends Controller
         (new PushNotification(
             'Nova remessa adicionada',
             "Teste"
-        ))->run();
+        ))->run(); */
+
+        $div = gmp_div_r("5", "10");
+        $total = 1;
+
+        var_dump(gmp_strval($div));
     }
 
     /**

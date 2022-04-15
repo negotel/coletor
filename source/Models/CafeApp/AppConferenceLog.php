@@ -16,7 +16,18 @@ class AppConferenceLog extends Model
      */
     public function __construct()
     {
-        parent::__construct("app_conference_log", ["id"], ['n_pedido'],[], []);
+        parent::__construct(
+            "app_conference_log",
+            ["id"],
+            ['n_pedido'],
+            [
+                "app_conference_item" => "n_pedido"
+            ],
+            [
+                "app_conference_item" => "n_pedido"
+            ],
+            "app_conference_item.id, app_conference_item.`status`, app_conference_item.remessa, app_conference_item.nome, app_conference_item.n_pedido,  app_conference_item.data_log, app_conference_log.data_log as data_coletado"
+        );
     }
 
     public function log(?array $data)

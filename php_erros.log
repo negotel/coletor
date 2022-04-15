@@ -1,0 +1,71 @@
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP Notice:  Undefined variable: paginator in C:\xampp\htdocs\coletor\themes\app\home.php on line 50
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP Stack trace:
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   1. {main}() C:\xampp\htdocs\coletor\index.php:0
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   2. CoffeeCode\Router\Router->dispatch() C:\xampp\htdocs\coletor\index.php:159
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   3. CoffeeCode\Router\Router->execute() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:123
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   4. Source\App\App->home() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:143
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   5. Source\Core\View->render() C:\xampp\htdocs\coletor\source\App\App.php:79
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   6. League\Plates\Engine->render() C:\xampp\htdocs\coletor\source\Core\View.php:46
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   7. League\Plates\RenderTemplate\ComposeRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Engine.php:41
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   8. League\Plates\Extension\LayoutSections\LayoutRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ComposeRenderTemplate.php:17
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   9. League\Plates\RenderTemplate\ValidatePathRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Extension\LayoutSections\LayoutRenderTemplate.php:11
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  10. League\Plates\RenderTemplate\FileSystemRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ValidatePathRenderTemplate.php:19
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  11. League\Plates\RenderTemplate\PhpRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\FileSystemRenderTemplate.php:18
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  12. League\Plates\Util\obWrap() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:21
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  13. League\Plates\RenderTemplate\PhpRenderTemplate->League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:19-21}() C:\xampp\htdocs\coletor\vendor\league\plates\src\Util\util.php:21
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  14. League\Plates\RenderTemplate\PhpRenderTemplate::League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:25-28}() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:20
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  15. include() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:27
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP Notice:  Undefined index: remessa_timestamp in C:\xampp\htdocs\coletor\themes\app\theme.php on line 176
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP Stack trace:
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   1. {main}() C:\xampp\htdocs\coletor\index.php:0
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   2. CoffeeCode\Router\Router->dispatch() C:\xampp\htdocs\coletor\index.php:159
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   3. CoffeeCode\Router\Router->execute() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:123
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   4. Source\App\App->home() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:143
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   5. Source\Core\View->render() C:\xampp\htdocs\coletor\source\App\App.php:79
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   6. League\Plates\Engine->render() C:\xampp\htdocs\coletor\source\Core\View.php:46
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   7. League\Plates\RenderTemplate\ComposeRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Engine.php:41
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   8. League\Plates\Extension\LayoutSections\LayoutRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ComposeRenderTemplate.php:17
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP   9. League\Plates\RenderTemplate\ComposeRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Extension\LayoutSections\LayoutRenderTemplate.php:21
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  10. League\Plates\Extension\LayoutSections\LayoutRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ComposeRenderTemplate.php:17
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  11. League\Plates\RenderTemplate\ValidatePathRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Extension\LayoutSections\LayoutRenderTemplate.php:11
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  12. League\Plates\RenderTemplate\FileSystemRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ValidatePathRenderTemplate.php:19
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  13. League\Plates\RenderTemplate\PhpRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\FileSystemRenderTemplate.php:18
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  14. League\Plates\Util\obWrap() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:21
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  15. League\Plates\RenderTemplate\PhpRenderTemplate->League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:19-21}() C:\xampp\htdocs\coletor\vendor\league\plates\src\Util\util.php:21
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  16. League\Plates\RenderTemplate\PhpRenderTemplate::League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:25-28}() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:20
+[14-Apr-2022 21:05:02 America/Sao_Paulo] PHP  17. include() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:27
+[14-Apr-2022 21:09:30 America/Sao_Paulo] PHP Fatal error:  Uncaught Exception: Não foi possível enviar para todos os dispositivos. Cheque novamente o token do dispositivo in C:\xampp\htdocs\coletor\source\Support\PushNotification.php:84
+Stack trace:
+#0 C:\xampp\htdocs\coletor\source\Support\PushNotification.php(42): Source\Support\PushNotification->_enviar()
+#1 C:\xampp\htdocs\coletor\source\App\App.php(277): Source\Support\PushNotification->run()
+#2 C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php(143): Source\App\App->upload(Array)
+#3 C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php(123): CoffeeCode\Router\Dispatch->execute()
+#4 C:\xampp\htdocs\coletor\index.php(159): CoffeeCode\Router\Dispatch->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\coletor\source\Support\PushNotification.php on line 84
+[14-Apr-2022 21:09:31 America/Sao_Paulo] PHP Fatal error:  Uncaught Exception: Não foi possível enviar para todos os dispositivos. Cheque novamente o token do dispositivo in C:\xampp\htdocs\coletor\source\Support\PushNotification.php:84
+Stack trace:
+#0 C:\xampp\htdocs\coletor\source\Support\PushNotification.php(42): Source\Support\PushNotification->_enviar()
+#1 C:\xampp\htdocs\coletor\source\App\App.php(277): Source\Support\PushNotification->run()
+#2 C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php(143): Source\App\App->upload(Array)
+#3 C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php(123): CoffeeCode\Router\Dispatch->execute()
+#4 C:\xampp\htdocs\coletor\index.php(159): CoffeeCode\Router\Dispatch->dispatch()
+#5 {main}
+  thrown in C:\xampp\htdocs\coletor\source\Support\PushNotification.php on line 84
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP Notice:  Undefined variable: paginator in C:\xampp\htdocs\coletor\themes\app\home.php on line 50
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP Stack trace:
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   1. {main}() C:\xampp\htdocs\coletor\index.php:0
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   2. CoffeeCode\Router\Router->dispatch() C:\xampp\htdocs\coletor\index.php:159
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   3. CoffeeCode\Router\Router->execute() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:123
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   4. Source\App\App->home() C:\xampp\htdocs\coletor\vendor\coffeecode\router\src\Dispatch.php:143
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   5. Source\Core\View->render() C:\xampp\htdocs\coletor\source\App\App.php:79
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   6. League\Plates\Engine->render() C:\xampp\htdocs\coletor\source\Core\View.php:46
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   7. League\Plates\RenderTemplate\ComposeRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Engine.php:41
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   8. League\Plates\Extension\LayoutSections\LayoutRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ComposeRenderTemplate.php:17
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP   9. League\Plates\RenderTemplate\ValidatePathRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\Extension\LayoutSections\LayoutRenderTemplate.php:11
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  10. League\Plates\RenderTemplate\FileSystemRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\ValidatePathRenderTemplate.php:19
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  11. League\Plates\RenderTemplate\PhpRenderTemplate->renderTemplate() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\FileSystemRenderTemplate.php:18
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  12. League\Plates\Util\obWrap() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:21
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  13. League\Plates\RenderTemplate\PhpRenderTemplate->League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:19-21}() C:\xampp\htdocs\coletor\vendor\league\plates\src\Util\util.php:21
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  14. League\Plates\RenderTemplate\PhpRenderTemplate::League\Plates\RenderTemplate\{closure:C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:25-28}() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:20
+[14-Apr-2022 21:14:34 America/Sao_Paulo] PHP  15. include() C:\xampp\htdocs\coletor\vendor\league\plates\src\RenderTemplate\PhpRenderTemplate.php:27
