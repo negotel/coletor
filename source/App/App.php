@@ -271,10 +271,10 @@ class App extends Controller
                 $json["redirect"] = url("app/remessa/{$nremessa}");
             }
 
-            (new PushNotification(
+            /* (new PushNotification(
                 'Nova remessa adicionada',
                 "{$this->client->nome} adicionou uma nova remessa, por favor providencie a coleta."
-            ))->run();
+            ))->run(); */
 
             echo json_encode($json);
         }
