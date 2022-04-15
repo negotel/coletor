@@ -83,10 +83,7 @@ class Api extends Controller
 
         $results = [
             'result' => false,
-            'data' => [
-                'abertos' => null,
-                'coletados' => null
-            ],
+            'data' => null,
             'total' => 0,
             'totalColetado' => 0,
             'nRemessa' => null,
@@ -95,12 +92,11 @@ class Api extends Controller
 
         if ($remessas) {
             foreach ($remessas as $remessa) {
-                //$results['data'][] = $remessa->data();
-
+                
                 if ($remessa->status == 'aberto') {
                     $results['total'] += 1;
 
-                    $results['data']['abertos'][] = [
+                    $results['data'][] = [
                         "id" => $remessa->id,
                         "status" => $remessa->status,
                         "remessa" =>  $remessa->remessa,
