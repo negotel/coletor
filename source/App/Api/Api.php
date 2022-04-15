@@ -99,7 +99,7 @@ class Api extends Controller
 
                 if ($remessa->status == 'aberto') {
                     $results['total'] += 1;
-                    
+
                     $results['data']['abertos'][] = [
                         "id" => $remessa->id,
                         "status" => $remessa->status,
@@ -144,7 +144,7 @@ class Api extends Controller
 
         $results = [
             'result' => false,
-            'data' => [],
+            'data' => null,
             'message' => null
         ];
 
