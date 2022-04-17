@@ -274,6 +274,7 @@ class Api extends Controller
 
     public function notification_send(?array $data)
     {
+        $start_exec = date('d.m.Y H:i:s');
         $conference = (new AppConference())->join()->find("notification = :notification", "notification={$data['type']}")->fetch(true);
 
         $result = [];
@@ -282,9 +283,9 @@ class Api extends Controller
         if ($conference) {
             foreach ($conference as $conferenc) {
                 $conference_item = (new AppConferenceItem())->countItem($conferenc);
-            
+
                 $complement_msg = "{$conference_item} item";
-                if($conference_item > 1){
+                if ($conference_item > 1) {
                     $complement_msg = "{$conference_item} itens";
                 }
 
@@ -294,7 +295,7 @@ class Api extends Controller
                     "titulo_notificacao" => "{$conferenc->nomeClient} adicionou nova remessa",
                     "corpo_notificacao" => "Remessa {$conferenc->remessa} contem {$complement_msg}, por favor providencie a coleta."
                 ]; */
-                
+
                 (new PushNotification(
                     "{$conferenc->nomeClient} adicionou nova remessa",
                     "Remessa {$conferenc->remessa} contem {$complement_msg}, por favor providencie a coleta."
@@ -303,11 +304,13 @@ class Api extends Controller
                 $update_conference = (new AppConference())->findById($conferenc->id);
                 $update_conference->notification = 'sim';
                 $update_conference->save();
-                
             }
             $result['message'] = "Notificações enviada com sucesso";
         }
+        
+        $fim_exc = date('d.m.Y H:i:s');
 
+        file_put_contents('../logs.txt', "[--INICIO--] => {$start_exec}\n[--FIM-- ] => {$fim_exc} \n", FILE_APPEND);
         $this->back($result);
     }
 
