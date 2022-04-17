@@ -278,6 +278,7 @@ class Api extends Controller
 
         $result = [];
 
+        $result['message'] = "Nenhuma notificações encontrada.";
         if ($conference) {
             foreach ($conference as $conferenc) {
                 $conference_item = (new AppConferenceItem())->countItem($conferenc);
