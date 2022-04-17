@@ -76,14 +76,14 @@ class PushNotification
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($httpcode == 401) throw new \Exception('Chave do Servidor errada', 1);
+        if ($httpcode == 401) return false;
+        //if ($httpcode == 401) throw new \Exception('Chave do Servidor errada', 1);
         if ($httpcode == 200) {
-            $resultado = json_decode($resultado, true);
-
-            if (!empty($resultado['failure']))
-                throw new \Exception('Não foi possível enviar para todos os dispositivos. Cheque novamente o token do dispositivo', 2);
-
-            return $resultado;
+            return true;
+            //return json_decode($resultado);
+            //if (!empty($resultado['failure']));
+            //$resultado = $resultado['failure'];
+            //throw new \Exception('Não foi possível enviar para todos os dispositivos. Cheque novamente o token do dispositivo', 2);
         }
     }
 }

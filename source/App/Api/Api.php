@@ -92,7 +92,7 @@ class Api extends Controller
 
         if ($remessas) {
             foreach ($remessas as $remessa) {
-                
+
                 if ($remessa->status == 'aberto') {
                     $results['total'] += 1;
 
@@ -147,7 +147,7 @@ class Api extends Controller
 
         if ($data_coleta) {
             foreach ($data_coleta as $remessa) {
-                
+
                 $results['data'][] = [
                     "id" => $remessa->id,
                     "status" => $remessa->status,
@@ -270,11 +270,44 @@ class Api extends Controller
             'Nova remessa adicionada',
             "Teste"
         ))->run(); */
+    }
 
-        $div = gmp_div_r("5", "10");
-        $total = 1;
+    public function notification_send(?array $data)
+    {
+        $conference = (new AppConference())->join()->find("notification = :notification", "notification={$data['type']}")->fetch(true);
 
-        var_dump(gmp_strval($div));
+        $result = [];
+
+        if ($conference) {
+            foreach ($conference as $conferenc) {
+                $conference_item = (new AppConferenceItem())->countItem($conferenc);
+            
+                $complement_msg = "{$conference_item} item";
+                if($conference_item > 1){
+                    $complement_msg = "{$conference_item} itens";
+                }
+
+                /* $result["data"][] = [
+                    "cliente" => $conferenc->nomeClient,
+                    "total_item_adicionado" => $conference_item,
+                    "titulo_notificacao" => "{$conferenc->nomeClient} adicionou nova remessa",
+                    "corpo_notificacao" => "Remessa {$conferenc->remessa} contem {$complement_msg}, por favor providencie a coleta."
+                ]; */
+                
+                (new PushNotification(
+                    "{$conferenc->nomeClient} adicionou nova remessa",
+                    "Remessa {$conferenc->remessa} contem {$complement_msg}, por favor providencie a coleta."
+                ))->run();
+
+                $update_conference = (new AppConference())->findById($conferenc->id);
+                $update_conference->notification = 'sim';
+                $update_conference->save();
+                
+            }
+            $result['message'] = "Notificações enviada com sucesso";
+        }
+
+        $this->back($result);
     }
 
     /**

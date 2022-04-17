@@ -33,6 +33,7 @@ $route->get("/remessa/{remessa}", "Api:get_data_remessa_item");
 $route->get("/remessa/coletados/{remessa}", "Api:get_objetos_coletado");
 $route->get("/remessa/validar/{remessa}", "Api:validar_remessa");
 
+$route->get("/notification/{type}", "Api:notification_send");
 $route->get("/device/save/{pushNotificationID}", "Api:save_device");
 
 
