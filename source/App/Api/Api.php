@@ -307,10 +307,10 @@ class Api extends Controller
             }
             $result['message'] = "Notificações enviada com sucesso";
         }
-        
+
         $fim_exc = date('d.m.Y H:i:s');
 
-        file_put_contents('../logs.txt', "[--INICIO--] => {$start_exec}\n[--FIM-- ] => {$fim_exc} \n", FILE_APPEND);
+        file_put_contents('../logs.txt', "[--INICIO--] => {$start_exec} | [--FIM--] => {$fim_exc}  | {$result['message']}\n", FILE_APPEND);
         $this->back($result);
     }
 
