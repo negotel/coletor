@@ -6,7 +6,7 @@
         <header class="card-header">
             <h3 class="card-title fw-500">Detalhes da Remessa [<?php echo $nremessa; ?>]</h3>
             <div class="card-header-actions">
-                <a class="btn btn-dark" onclick="abrirModal('<?= url('/app/remessa/print/' . $nremessa) ?>')" href="#"> <i class="ti-printer"></i> </a>
+                <a class="btn btn-dark" data-url-print="<?= url('/app/remessa/print/' . $nremessa) ?>" data-action="<?= url('/app/remessa/finalizar/' . $nremessa) ?>" data-modal-confirm="true" href="#"> <i class="ti-printer"></i> </a>
                 <a class="btn btn-info" href="<?php echo url("/app/remessa/adicionar/{$nremessa}"); ?>"> <i class="ti-upload"></i> </a>
             </div>
         </header>

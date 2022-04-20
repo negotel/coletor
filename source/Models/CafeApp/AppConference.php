@@ -35,7 +35,7 @@ class AppConference extends Model
 
     public function remessa(User $user)
     {
-        return $this->join('LEFT JOIN')->find("app_conference.client_id = :cid", "cid={$user->client_id}")->fetch(true);
+        return $this->join('LEFT JOIN')->find("app_conference.client_id = :cid", "cid={$user->client_id}")->order('status, data_log')->fetch(true);
     }
 
     public function getRemessa($remessa, User $user, $all = true)

@@ -282,6 +282,69 @@ app.ready(function() {
         title: 'Enter username'
     });
 
+    $("[data-modal-confirm]").click(function(e) {
+        e.preventDefault();
+
+
+
+        let clicked = $(this);
+        let data = clicked.data();
+        let load = $(".ajax_load");
+
+        swal({
+            title: "Confirmação de Impressão",
+            text: "Você deseja imprimir e finalizar esta remessa?",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, Finalizar e Imprimir!',
+            cancelButtonText: 'Não, Apenas Imprimir!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-info',
+            buttonsStyling: false
+        }).then(function(e) {
+
+            if (e.value) {
+                $.ajax({
+                    url: data.action,
+                    type: "POST",
+                    data: data,
+                    dataType: "json",
+                    beforeSend: function() {
+                        $(".ajax_load")
+                            .fadeIn(200)
+                            .css("display", "flex")
+                            .find(".ajax_load_box_title")
+                            .text('Aguarde, processando dados...');
+                    },
+                    success: function(response) {
+                        load.fadeOut(200);
+                        if (response.result) {
+                            toast('success', response.message);
+                            abrirModal(data.urlPrint);
+                            return false;
+                        }
+
+                        toast('error', response.message);
+                    },
+                    error: function() {
+                        toast('error', 'Ops, algo de errado aconteceu ao execulta dados.');
+                        load.fadeOut();
+                    }
+                });
+                return false;
+            }
+
+            if (e.dismiss == 'cancel') {
+                abrirModal(data.urlPrint);
+            }
+            return false;
+        }, function(dismiss) {
+            load.fadeOut(200);
+        })
+    });
+
 
     $("[data-post]").click(function(e) {
         e.preventDefault();
@@ -738,5 +801,21 @@ app.ready(function() {
             }
         }, "json");
     });
+
+    //menssagens toast
+    function toast(type, message) {
+        $.toast({
+            text: message, // Text that is to be shown in the toast
+            icon: type, // Type of toast icon
+            showHideTransition: 'slide', // fade, slide or plain
+            allowToastClose: true, // Boolean value true or false
+            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+            stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+            position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+            textAlign: 'left', // Text alignment i.e. left, right or center
+            loader: true, // Whether to show loader or not. True by default
+            loaderBg: '#926dde', // Background color of the toast loader
+        });
+    }
 
 });

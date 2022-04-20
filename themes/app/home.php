@@ -29,7 +29,7 @@
                                 <td><?php echo $remessa->status; ?></td>
                                 <td><?php echo $remessa->data_log; ?></td>
                                 <td class="text-right table-actions">
-                                    <a class="table-action hover-primary" onclick="abrirModal('<?= url('/app/remessa/print/' . $remessa->remessa) ?>')" href="#"><i class="ti-printer"></i></a>
+                                    <a class="table-action hover-primary"data-url-print="<?= url('/app/remessa/print/' . $remessa->remessa) ?>" data-action="<?= url('/app/remessa/finalizar/' . $remessa->remessa) ?>" data-modal-confirm="true" href="#"><i class="ti-printer"></i></a>
                                     <div class="dropdown table-action">
                                         <span class="dropdown-toggle no-caret hover-primary" data-toggle="dropdown"><i class="ti-more-alt rotate-90"></i></span>
                                         <div class="dropdown-menu dropdown-menu-right">

@@ -115,12 +115,36 @@ class App extends Controller
         }
         $itens = (new AppConferenceItem())->itens($remessa);
 
-        echo $this->view->render("remessa", [
+        echo $this->view->render("remessa_itens", [
             "head" => $head,
             "remessa" => $remessa,
             'nremessa' => $data['remessa'],
             'itens' => $itens
         ]);
+    }
+
+    public function remessa_finalizar(?array $data)
+    {
+        $remessa = (new AppConference())->getRemessa($data['remessa'], $this->user, false);
+        if (!$remessa) {
+            $json['result'] = false;
+            $json["message"] = "Ops, Você tentou acessa uma remessa que não existe";
+            echo json_encode($json);
+            exit;
+        }
+
+        $uploadRemessa = (new AppConference())->findById($remessa->id);
+        $uploadRemessa->status = 'finalizado';
+
+        if (!$uploadRemessa->save()) {
+            $json['result'] = false;
+            $json["message"] = $uploadRemessa->message()->render();
+            echo json_encode($json);
+            return;
+        }
+        $json['result'] = true;
+        $json["message"] = "Remessa finalizada com sucesso.";
+        echo json_encode($json);
     }
 
     public function remessa_print(?array $data)
