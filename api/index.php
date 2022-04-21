@@ -27,7 +27,7 @@ $route->namespace("Source\App\Api");
  */
 //user
 $route->group(null);
-$route->get("/remessas", "Api:get_data_remessa");
+$route->get("/remessas/{type}", "Api:get_data_remessa");
 $route->get("/remessa/coleta/{n_pedido}", "Api:coleta_remessa");
 $route->get("/remessa/{remessa}", "Api:get_data_remessa_item");
 $route->get("/remessa/coletados/{remessa}", "Api:get_objetos_coletado");

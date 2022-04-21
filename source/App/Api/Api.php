@@ -53,8 +53,8 @@ class Api extends Controller
     public function get_data_remessa(?array $data)
     {
 
-        $remessas = (new AppConference())->join()->find('app_conference.status = :st', 'st=aberto', "app_conference.*, concat(users.first_name,' ', users.last_name) as cliente, count()")->order('app_conference.data_log DESC')->fetch(true);
-        $results = ['result' => false, 'data' => null, 'total' => 0];
+        $remessas = (new AppConference())->join()->find('app_conference.status = :st', "st={$data['type']}", "app_conference.*, concat(users.first_name,' ', users.last_name) as cliente, count()")->order('app_conference.data_log DESC')->fetch(true);
+        $results = ['result' => false, 'data' => null, 'total' => 0, 'total_finalizado' => 0];
 
         if ($remessas) {
             foreach ($remessas as $remessa) {
@@ -70,8 +70,11 @@ class Api extends Controller
                 if ($remessa->status == 'aberto') {
                     $results['total'] += 1;
                 }
+
                 $results['result'] = true;
             }
+
+            $results['total_finalizado'] = (new AppConference())->join()->find('app_conference.status = :st', 'st=finalizado')->count();
         }
 
         $this->back($results);
