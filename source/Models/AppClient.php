@@ -1,17 +1,17 @@
 <?php
 
-namespace Source\Models\CafeApp;
+namespace Source\Models;
 
 use Source\Core\Model;
 
 /**
- * Class AppCategory
- * @package Source\Models\CafeApp
+ * Class AppClient
+ * @package Source\Models
  */
 class AppClient extends Model
 {
     /**
-     * AppCategory constructor.
+     * AppClient constructor.
      */
     public function __construct()
     {

@@ -1,18 +1,18 @@
 <?php
 
-namespace Source\Models\CafeApp;
+namespace Source\Models;
 
 use Source\Core\Model;
 use Source\Models\User;
 
 /**
- * Class AppCategory
- * @package Source\Models\CafeApp
+ * Class AppConference
+ * @package Source\Models
  */
 class AppConference extends Model
 {
     /**
-     * AppCategory constructor.
+     * AppConference constructor.
      */
     public function __construct()
     {

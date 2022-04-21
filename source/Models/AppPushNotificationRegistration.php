@@ -1,18 +1,18 @@
 <?php
 
-namespace Source\Models\CafeApp;
+namespace Source\Models;
 
 use Source\Core\Model;
 use Source\Models\User;
 
 /**
- * Class AppCategory
- * @package Source\Models\CafeApp
+ * Class AppPushNotificationRegistration
+ * @package Source\Models
  */
 class AppPushNotificationRegistration extends Model
 {
     /**
-     * AppCategory constructor.
+     * AppPushNotificationRegistration constructor.
      */
     public function __construct()
     {

@@ -3,10 +3,11 @@
 namespace Source\App\Api;
 
 use Source\Core\Controller;
-use Source\Models\CafeApp\AppConference;
-use Source\Models\CafeApp\AppConferenceItem;
-use Source\Models\CafeApp\AppConferenceLog;
-use Source\Models\CafeApp\AppPushNotificationRegistration;
+use Source\Models\AppConference;
+use Source\Models\AppConferenceItem;
+use Source\Models\AppConferenceLog;
+use Source\Models\AppControlVersionAppMobile;
+use Source\Models\AppPushNotificationRegistration;
 use Source\Support\PushNotification;
 
 /**
@@ -312,6 +313,18 @@ class Api extends Controller
 
         file_put_contents('../logs.txt', "[--INICIO--] => {$start_exec} | [--FIM--] => {$fim_exc}  | {$result['message']}\n", FILE_APPEND);
         $this->back($result);
+    }
+
+    public function check_update_version(?array $data)
+    {
+        $new_version_app_mobile = (new AppControlVersionAppMobile())->getNewVersion();
+        $this->back([
+            "description" => $new_version_app_mobile->description,
+            "version_number" => $new_version_app_mobile->version_number,
+            "url_download" => $new_version_app_mobile->url_download,
+            "status" => $new_version_app_mobile->status,
+            "create_at" => $new_version_app_mobile->create_at,
+        ]);
     }
 
     /**

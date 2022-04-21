@@ -6,16 +6,16 @@ use Dompdf\Dompdf;
 use Source\Core\Controller;
 use Source\Core\Session;
 use Source\Models\Auth;
-use Source\Models\CafeApp\AppClient;
-use Source\Models\CafeApp\AppConference;
-use Source\Models\CafeApp\AppConferenceItem;
-use Source\Models\CafeApp\AppImportTemplate;
+use Source\Models\AppClient;
+use Source\Models\AppConference;
+use Source\Models\AppConferenceItem;
+use Source\Models\AppImportTemplate;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
 use Source\Models\User;
 use Source\Support\Thumb;
 use Source\Support\Upload;
-use Source\Models\CafeApp\AppTemplateFile;
+use Source\Models\AppTemplateFile;
 use Source\Support\PushNotification;
 
 /**

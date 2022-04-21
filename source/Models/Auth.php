@@ -5,7 +5,7 @@ namespace Source\Models;
 use Source\Core\Model;
 use Source\Core\Session;
 use Source\Core\View;
-use Source\Models\CafeApp\AppClient;
+use Source\Models\AppClient;
 use Source\Support\Email;
 
 /**
