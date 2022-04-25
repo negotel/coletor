@@ -276,6 +276,13 @@ class Api extends Controller
         ))->run(); */
     }
 
+    public function send_notification_update(){
+        (new PushNotification(
+            "Uma nova atualização",
+            "Atualização disponivel, você pode instalar a nova versão clicando nessa notificação."
+        ))->run();
+    }
+
     public function notification_send(?array $data)
     {
         $start_exec = date('d.m.Y H:i:s');

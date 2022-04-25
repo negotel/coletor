@@ -2,7 +2,7 @@
 
 namespace Source\Support;
 
-use Source\Models\CafeApp\AppPushNotificationRegistration;
+use Source\Models\AppPushNotificationRegistration;
 
 class PushNotification
 {
