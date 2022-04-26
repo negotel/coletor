@@ -24,7 +24,7 @@ class AppPushNotificationRegistration extends Model
         return $this->find("status = :st", "st=ativo")->fetch(true);
     }
 
-    public function findTokenPushNotification(string $token){
-        return $this->find("token_push_notification = :token_push_notification", "token_push_notification={$token}")->fetch();
+    public function findTokenPushNotification(string $str){
+        return $this->find("id_mobile = :id_mobile", "id_mobile={$str}")->fetch();
     }
 }

@@ -79,8 +79,8 @@ class PushNotification
         if ($httpcode == 401) return false;
         //if ($httpcode == 401) throw new \Exception('Chave do Servidor errada', 1);
         if ($httpcode == 200) {
-            return true;
-            //return json_decode($resultado);
+            //return true;
+            return json_decode($resultado);
             //if (!empty($resultado['failure']));
             //$resultado = $resultado['failure'];
             //throw new \Exception('Não foi possível enviar para todos os dispositivos. Cheque novamente o token do dispositivo', 2);

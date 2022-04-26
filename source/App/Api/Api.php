@@ -245,19 +245,36 @@ class Api extends Controller
 
     public function save_device(?array $data)
     {
-        $pushGetToken = (new AppPushNotificationRegistration())->findTokenPushNotification($data['pushNotificationID']);
+        
+        
+        $results['result'] = false;
+
+        $data = filter_var_array(getParseUrl(), FILTER_DEFAULT);
+        $pushGetToken = (new AppPushNotificationRegistration())->findTokenPushNotification($data['id_mobile']);
         if (!$pushGetToken) {
+
             $push = new AppPushNotificationRegistration();
-            $push->token_push_notification = $data['pushNotificationID'];
+            $push->token_push_notification = $data['token_push_notification'];
+            $push->id_mobile = $data['id_mobile'];
+            $push->manufacturer = $data['manufacturer'];
+            $push->model = $data['model'];
+            $push->name = $data['name'];
+            $push->operatingSystem = $data['operatingSystem'];
+            $push->osVersion = $data['osVersion'];
             $push->status = 'ativo';
 
             $push->save();
-            $results['message'] = 'ok';
-
-            $this->back($results);
-            return true;
+            $results['result'] = true;
+        }else{
+            $push = (new AppPushNotificationRegistration())->findById($pushGetToken->id);
+            $push->token_push_notification = $data['token_push_notification'];
+            $push->status = 'ativo';
+            $push->save();
+            $results['result'] = true;
         }
-        return false;
+
+        $results['messagem'] = "Iniciando trabalho...";
+        $this->back($results);
     }
 
     public function push()
@@ -276,11 +293,14 @@ class Api extends Controller
         ))->run(); */
     }
 
-    public function send_notification_update(){
-        (new PushNotification(
+    public function send_notification_update()
+    {
+        $v = (new PushNotification(
             "Uma nova atualização",
             "Atualização disponivel, você pode instalar a nova versão clicando nessa notificação."
         ))->run();
+
+        var_dump($v);
     }
 
     public function notification_send(?array $data)

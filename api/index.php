@@ -36,6 +36,7 @@ $route->get("/remessa/validar/{remessa}", "Api:validar_remessa");
 $route->get("/notification/{type}", "Api:notification_send");
 $route->get("/notification/update", "Api:send_notification_update");
 $route->get("/device/save/{pushNotificationID}", "Api:save_device");
+$route->get("/device/save", "Api:save_device");
 
 $route->get("/check/update/vesion", "Api:check_update_version");
 
