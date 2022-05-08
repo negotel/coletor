@@ -4,7 +4,7 @@
 <div class="col-xl-12">
     <div class="card card-round shadow-material-1">
         <header class="card-header">
-            <h3 class="card-title fw-500">Lista de Remessas</h3>
+            <h3 class="card-title fw-500 text-uppercase">Lista de Remessas</h3>
             <div class="card-header-actions">
                 <a class="btn btn-dark" href="<?php echo url("/app/importacao"); ?>"> <i class="fa fa-upload"></i> </a>
             </div>
