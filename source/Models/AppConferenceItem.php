@@ -30,7 +30,7 @@ class AppConferenceItem extends Model
 
     public function countItem(AppConference $remessa): int
     {
-        return $this->find("remessa = :remessa", "remessa={$remessa->remessa}")->count();;
+        return $this->find("remessa = :remessa", "remessa={$remessa->remessa}")->count();
     }
 	
 	 public function countItemRead(AppConference $remessa): int

@@ -4,9 +4,10 @@ font-roboto {
     font-weight: 400;
 }
 
-.topbar-inverse {
+
+/* .topbar-inverse {
     background-image: linear-gradient(to right, #42E695 0%, #3BB2B8 50%, #42E695 100%) !important;
-}
+} */
 
 .ui-autocomplete {
     position: absolute;

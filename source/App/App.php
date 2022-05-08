@@ -63,20 +63,21 @@ class App extends Controller
      */
     public function home(): void
     {
-        $head = $this->seo->render(
-            "Olá {$this->user->first_name}. Vamos controlar? - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/share.jpg"),
-            false
-        );
+        $first_month_day = 01;
+        $last_month_day = 30;
 
-        //REMESSA
         $remessas = (new AppConference())->remessa($this->user);
+        $count_remessas = (new AppConferenceItem())->find("user_id = :uid AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
+        $count_item_coletados = (new AppConferenceItem())->find("user_id = :uid AND status = 'coletado' AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
+        $count_item_abertos = (new AppConferenceItem())->find("user_id = :uid AND status = 'aberto' AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
 
         echo $this->view->render("home", [
-            "head" => $head,
-            "remessas" => $remessas
+            "remessas" => $remessas,
+            'dash' => [
+                'encomendas' => $count_remessas,
+                'coletado' => $count_item_coletados,
+                'pendente' => $count_item_abertos
+            ]
         ]);
     }
 
