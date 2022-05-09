@@ -143,9 +143,41 @@
             </div>
         </footer>
     </main>
+    <?php
+    $data_coletado = "[" .
+        "{$dash['estatistica']['coletado']->janeiro}," .
+        "{$dash['estatistica']['coletado']->fevereiro}," .
+        "{$dash['estatistica']['coletado']->marco}," .
+        "{$dash['estatistica']['coletado']->abril}," .
+        "{$dash['estatistica']['coletado']->maio}," .
+        "{$dash['estatistica']['coletado']->junho}," .
+        "{$dash['estatistica']['coletado']->julho}," .
+        "{$dash['estatistica']['coletado']->agosto}," .
+        "{$dash['estatistica']['coletado']->setembro}," .
+        "{$dash['estatistica']['coletado']->outubro}," .
+        "{$dash['estatistica']['coletado']->novembro}," .
+        "{$dash['estatistica']['coletado']->dezembro}" .
+        "]";
 
+
+    $data_pendente = "[" .
+        "{$dash['estatistica']['pendente']->janeiro}," .
+        "{$dash['estatistica']['pendente']->fevereiro}," .
+        "{$dash['estatistica']['pendente']->marco}," .
+        "{$dash['estatistica']['pendente']->abril}," .
+        "{$dash['estatistica']['pendente']->maio}," .
+        "{$dash['estatistica']['pendente']->junho}," .
+        "{$dash['estatistica']['pendente']->julho}," .
+        "{$dash['estatistica']['pendente']->agosto}," .
+        "{$dash['estatistica']['pendente']->setembro}," .
+        "{$dash['estatistica']['pendente']->outubro}," .
+        "{$dash['estatistica']['pendente']->novembro}," .
+        "{$dash['estatistica']['pendente']->dezembro}" .
+        "]";
+
+    ?>
     <!-- Scripts -->
-    <script src="<?= theme("assets/js/core.min.js", CONF_VIEW_APP) ?>" data-provide="sweetalert"></script>
+    <script src="<?= theme("assets/js/core.min.js", CONF_VIEW_APP) ?>" data-provide="sweetalert chartjs"></script>
     <script src="<?= theme("assets/js/app.min.js", CONF_VIEW_APP) ?>"></script>
     <script src="<?= theme("assets/js/script.js", CONF_VIEW_APP) ?>"></script>
     <script src="<?= theme("assets/vendor/jqueryui/jquery-ui.js", CONF_VIEW_APP) ?>"></script>
@@ -157,6 +189,58 @@
     <script type="text/javascript">
         Dropzone.autoDiscover = false;
         app.ready(function() {
+
+            var myChartjs = new Chart($("#chart-line-4"), {
+                type: 'line',
+                data: {
+                    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                    datasets: [{
+                            label: "Coletados",
+                            fill: false,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderColor: "#36a2eb",
+                            backgroundColor: "#36a2eb",
+                            pointBackgroundColor: "#36a2eb",
+                            pointBorderColor: "#36a2eb",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#36a2eb",
+                            data: <?= $data_coletado ?>
+                        },
+                        {
+                            label: "Pedentes",
+                            fill: false,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderColor: "#ff6384",
+                            backgroundColor: "#ff6384",
+                            pointBackgroundColor: "#ff6384",
+                            pointBorderColor: "#ff6384",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#ff6384",
+                            data: <?= $data_pendente ?>
+                        }/* ,
+                        {
+                            label: "Postados",
+                            fill: false,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderColor: "rgba(51,202,185,0.5)",
+                            backgroundColor: "rgba(51,202,185,0.5)",
+                            pointBackgroundColor: "rgba(51,202,185,0.5)",
+                            pointBorderColor: "rgba(51,202,185,0.5)",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "rgba(51,202,185,0.5)",
+                            data: [31, 23, 34, 22, 52, 63]
+                        } */
+                    ]
+                },
+
+                // Options
+                //
+                options: {}
+            });
+
             var myDropzone = new Dropzone(".dropzone", {
                 url: "<?= url("app/processar/arquivo") ?>",
                 paramName: "file",
@@ -173,7 +257,7 @@
                     this.on("sending", function(file, xhr, formData) {
                         $(".response_message").html("");
                         load.fadeIn(200).css("display", "flex");
-                        formData.append("remessa", '<?=$_SESSION['remessa_timestamp']?>');
+                        formData.append("remessa", '<?= $_SESSION['remessa_timestamp'] ?>');
                         //location.reload();
                     });
 

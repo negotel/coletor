@@ -2,6 +2,7 @@
 
 namespace Source\App;
 
+use DateTime;
 use Dompdf\Dompdf;
 use Source\Core\Controller;
 use Source\Core\Session;
@@ -63,20 +64,27 @@ class App extends Controller
      */
     public function home(): void
     {
-        $first_month_day = 01;
-        $last_month_day = 30;
+        $date = new DateTime("now");
+        $date->modify("last day of this month");
+
+        $first_month_day = $date->format("Y-m-01");
+        $last_month_day = $date->format("Y-m-t");
 
         $remessas = (new AppConference())->remessa($this->user);
-        $count_remessas = (new AppConferenceItem())->find("user_id = :uid AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
-        $count_item_coletados = (new AppConferenceItem())->find("user_id = :uid AND status = 'coletado' AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
-        $count_item_abertos = (new AppConferenceItem())->find("user_id = :uid AND status = 'aberto' AND data_log BETWEEN '2022-04-01' AND '2022-04-31'", "uid={$this->user->id}")->count();
+        $count_remessas = (new AppConferenceItem())->find("user_id = :uid AND data_log BETWEEN '{$first_month_day}' AND '{$last_month_day}'", "uid={$this->user->id}")->count();
+        $count_item_coletados = (new AppConferenceItem())->find("user_id = :uid AND status = 'coletado' AND data_log BETWEEN '{$first_month_day}' AND '{$last_month_day}'", "uid={$this->user->id}")->count();
+        $count_item_abertos = (new AppConferenceItem())->find("user_id = :uid AND status = 'aberto' AND data_log BETWEEN '{$first_month_day}' AND '{$last_month_day}'", "uid={$this->user->id}")->count();
 
         echo $this->view->render("home", [
             "remessas" => $remessas,
             'dash' => [
                 'encomendas' => $count_remessas,
                 'coletado' => $count_item_coletados,
-                'pendente' => $count_item_abertos
+                'pendente' => $count_item_abertos,
+                'estatistica' => [
+                    'coletado' => (new AppConferenceItem())->find(null, null, queryCountMonthData('id', 'app_conference_item', 'data_log', 'coletado', date('Y')))->fetch(),
+                    'pendente' => (new AppConferenceItem())->find(null, null, queryCountMonthData('id', 'app_conference_item', 'data_log', 'aberto', date('Y')))->fetch()
+                ]
             ]
         ]);
     }

@@ -8,7 +8,7 @@ function mes_extenso($mes)
         case 2:
             return 'Fevereiro';
         case 3:
-            return 'Março';
+            return 'Marco';
         case 4:
             return 'Abril';
         case 5:
@@ -29,6 +29,21 @@ function mes_extenso($mes)
             return 'Dezembro';
     }
 }
+
+
+function queryCountMonthData($field = 'id', $table, $field_referent = 'created_at', $status, $year): string
+{
+    $fields_term = null;
+    for ($i = 1; $i <= 12; $i++) {
+        $fields_term .= "(SELECT IFNULL(COUNT({$field}), 0) as " . mb_strtolower(mes_extenso($i)) . " FROM {$table} WHERE EXTRACT(month FROM {$field_referent}) = {$i} AND EXTRACT(year FROM {$field_referent}) = '" . $year . "' AND `status` = '{$status}') " . mb_strtolower(mes_extenso($i));
+        if ($i < 12) {
+            $fields_term .= ',';
+        }
+    }
+
+    return $fields_term;
+}
+
 
 function getParseUrl(): ?array
 {

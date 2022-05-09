@@ -7,9 +7,9 @@
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-cubes fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-muted">em <?=mes_extenso(date('m'))?></span>
+                    <span class="fs-10 text-muted">em <?= mes_extenso(date('m')) ?></span>
                     <h5 class="fw-500">Encomendas</h5>
-                    <span class="fs-30 fw-400"> <?=$dash['encomendas']?> </span>
+                    <span class="fs-30 fw-400"> <?= $dash['encomendas'] ?> </span>
                 </div>
             </div>
         </div>
@@ -20,9 +20,9 @@
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-location-arrow fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-muted">em <?=mes_extenso(date('m'))?></span>
+                    <span class="fs-10 text-muted">em <?= mes_extenso(date('m')) ?></span>
                     <h5 class="fw-500">Coletado</h5>
-                    <span class="fs-30 fw-400"> <?=$dash['coletado']?> </span>
+                    <span class="fs-30 fw-400"> <?= $dash['coletado'] ?> </span>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-check-square fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-muted">em <?=mes_extenso(date('m'))?></span>
+                    <span class="fs-10 text-muted">em <?= mes_extenso(date('m')) ?></span>
                     <h5 class="fw-500">Postados</h5>
                     <span class="fs-30 fw-400"> 0 </span>
                 </div>
@@ -46,9 +46,9 @@
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-history fs-30 fw-500 text-danger"></span><br>
-                    <span class="fs-10 text-danger">em <?=mes_extenso(date('m'))?></span>
+                    <span class="fs-10 text-danger">em <?= mes_extenso(date('m')) ?></span>
                     <h5 class="fw-500 text-danger">Pendentes</h5>
-                    <span class="fs-30 fw-400 text-danger"> <?=$dash['pendente']?> </span>
+                    <span class="fs-30 fw-400 text-danger"> <?= $dash['pendente'] ?> </span>
                 </div>
             </div>
         </div>
@@ -60,7 +60,38 @@
     <div class="col-xl-12">
         <div class="card card-round shadow-material-1">
             <header class="card-header">
-                <h3 class="card-title fw-500 text-uppercase">Lista de Remessas</h3>
+                <h4 class="card-title fw-500">Estatística</h4>
+                <nav>
+                    <ul class="pagination pagination-info no-gutters">
+                        <li class="page-item active"><a class="page-link" href="#"><?=date('Y')?></a></li>
+                        <?php for ($range = 1; $range <= 3; $range++):
+                            $dateRange = date("Y", strtotime(date("Y-m-01") . "-{$range}Year"));
+                        ?>
+                        <li class="page-item"><a class="page-link" href="#"><?=$dateRange?></a></li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+            </header>
+
+
+            <div class="card-body">
+                <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                    <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                        <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                        <div style="position:absolute;width:100%;height:100%;left:0; top:0"></div>
+                    </div>
+                </div>
+                <canvas id="chart-line-4" width="577" height="180" class="chartjs-render-monitor" style="display: block; width: 577px; height: 360px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12">
+        <div class="card card-round shadow-material-1">
+            <header class="card-header">
+                <h3 class="card-title fw-500">Lista de Remessas</h3>
                 <div class="card-header-actions">
                     <a class="btn btn-dark" href="<?php echo url("/app/importacao"); ?>"> <i class="fa fa-upload"></i> </a>
                 </div>
@@ -103,7 +134,7 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-                <!-- <?= $paginator; ?> -->
+
             </div>
         </div>
     </div>
