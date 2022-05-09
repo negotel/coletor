@@ -15,27 +15,27 @@
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer">
+    <div class="col-6 col-xl-3 cursor-pointer text-info">
         <div class="card card-round shadow-material-1">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-location-arrow fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-muted">em <?= mes_extenso(date('m')) ?></span>
-                    <h5 class="fw-500">Coletado</h5>
-                    <span class="fs-30 fw-400"> <?= $dash['coletado'] ?> </span>
+                    <span class="fs-10 text-info">em <?= mes_extenso(date('m')) ?></span>
+                    <h5 class="fw-500 text-info">Coletado</h5>
+                    <span class="fs-30 fw-400 text-info"> <?= $dash['coletado'] ?> </span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer">
+    <div class="col-6 col-xl-3 cursor-pointer text-success">
         <div class="card card-round shadow-material-1">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-check-square fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-muted">em <?= mes_extenso(date('m')) ?></span>
-                    <h5 class="fw-500">Postados</h5>
-                    <span class="fs-30 fw-400"> 0 </span>
+                    <span class="fs-10  text-success">em <?= mes_extenso(date('m')) ?></span>
+                    <h5 class="fw-500 text-success">Postados</h5>
+                    <span class="fs-30 fw-400 text-success"> 0 </span>
                 </div>
             </div>
         </div>

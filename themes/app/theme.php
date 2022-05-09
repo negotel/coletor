@@ -219,20 +219,21 @@
                             pointHoverBackgroundColor: "#fff",
                             pointHoverBorderColor: "#ff6384",
                             data: <?= $data_pendente ?>
-                        }/* ,
-                        {
-                            label: "Postados",
-                            fill: false,
-                            borderWidth: 3,
-                            pointRadius: 4,
-                            borderColor: "rgba(51,202,185,0.5)",
-                            backgroundColor: "rgba(51,202,185,0.5)",
-                            pointBackgroundColor: "rgba(51,202,185,0.5)",
-                            pointBorderColor: "rgba(51,202,185,0.5)",
-                            pointHoverBackgroundColor: "#fff",
-                            pointHoverBorderColor: "rgba(51,202,185,0.5)",
-                            data: [31, 23, 34, 22, 52, 63]
-                        } */
+                        }
+                        /* ,
+                                                {
+                                                    label: "Postados",
+                                                    fill: false,
+                                                    borderWidth: 3,
+                                                    pointRadius: 4,
+                                                    borderColor: "rgba(51,202,185,0.5)",
+                                                    backgroundColor: "rgba(51,202,185,0.5)",
+                                                    pointBackgroundColor: "rgba(51,202,185,0.5)",
+                                                    pointBorderColor: "rgba(51,202,185,0.5)",
+                                                    pointHoverBackgroundColor: "#fff",
+                                                    pointHoverBorderColor: "rgba(51,202,185,0.5)",
+                                                    data: [31, 23, 34, 22, 52, 63]
+                                                } */
                     ]
                 },
 
