@@ -63,6 +63,8 @@ $route->post("/importacao/salva-layout", "App:save_layout");
 $route->post("/importacao/excluir/layout", "App:delete_layout");
 
 $route->get("/importacao/api", "App:importa_via_api");
+$route->get("/dashboard", "App:statistic");
+$route->post("/dashboard", "App:statistic");
 
 $route->get("/perfil", "App:profile");
 $route->get("/sair", "App:logout");

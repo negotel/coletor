@@ -527,4 +527,65 @@ class App extends Controller
         Auth::logout();
         redirect("/entrar");
     }
+
+    public function statistic(?array $data)
+    {
+
+        $coletados = (new AppConferenceItem())->analysisDashMonth(1, 12, 'coletado');
+        $pendentes = (new AppConferenceItem())->analysisDashMonth(1, 12, 'aberto');
+
+        if ($data) {
+            $coletados = (new AppConferenceItem())->analysisDashMonth($data['vmonth'], $data['vmonth'], 'coletado');
+            $pendentes = (new AppConferenceItem())->analysisDashMonth($data['vmonth'], $data['vmonth'], 'aberto');
+        }
+
+        $dataset['coletados'] = $coletados;
+        $dataset['pendentes'] = $pendentes;
+        echo json_encode($dataset);
+        return;
+        /* $array_push = [];
+        for ($d = 1; $d <= count($dataset['janeiro']); $d++) {
+            array_push($array_push, $dataset['janeiro'][$d]);
+        } */
+
+
+        return;
+
+        $month = "05";
+        $year = "2021";
+
+        $query_string = '';
+
+        for ($i = 1; $i <= 31; $i++) {
+            $query_string .= "(SELECT IFNULL(count(id), 0) as '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "' FROM app_conference_item WHERE EXTRACT(day FROM data_log) = '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "' AND EXTRACT(month FROM data_log) = {$month}) '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "'";
+            if ($i < 31) {
+                $query_string .= ',';
+            }
+        }
+
+
+        $q = (new AppConferenceItem())->find(null, null, $query_string)->fetch();
+
+        $data = (array)$q->data();
+        $dataset = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+
+            for ($j = 1; $j < count($data); $j++) {
+                $dataset[(month_in_full($month, true))][] = [
+                    $j => $data[str_pad($j, 2, '0', STR_PAD_LEFT)]
+                ];
+            }
+        }
+
+        echo json_encode($dataset);
+    }
+
+    public function teste()
+    {
+        $month = "05";
+        for ($i = 1; $i <= 31; $i++) {
+            echo "(SELECT IFNULL(count(id), 0) as '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "' FROM app_conference_item WHERE EXTRACT(day FROM data_log) = '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "' AND EXTRACT(month FROM data_log) = {$month}) '" . str_pad($i, 2, '0', STR_PAD_LEFT) . "',<br>";
+        }
+    }
 }

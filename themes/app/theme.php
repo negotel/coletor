@@ -143,39 +143,6 @@
             </div>
         </footer>
     </main>
-    <?php
-    $data_coletado = "[" .
-        "{$dash['estatistica']['coletado']->janeiro}," .
-        "{$dash['estatistica']['coletado']->fevereiro}," .
-        "{$dash['estatistica']['coletado']->marco}," .
-        "{$dash['estatistica']['coletado']->abril}," .
-        "{$dash['estatistica']['coletado']->maio}," .
-        "{$dash['estatistica']['coletado']->junho}," .
-        "{$dash['estatistica']['coletado']->julho}," .
-        "{$dash['estatistica']['coletado']->agosto}," .
-        "{$dash['estatistica']['coletado']->setembro}," .
-        "{$dash['estatistica']['coletado']->outubro}," .
-        "{$dash['estatistica']['coletado']->novembro}," .
-        "{$dash['estatistica']['coletado']->dezembro}" .
-        "]";
-
-
-    $data_pendente = "[" .
-        "{$dash['estatistica']['pendente']->janeiro}," .
-        "{$dash['estatistica']['pendente']->fevereiro}," .
-        "{$dash['estatistica']['pendente']->marco}," .
-        "{$dash['estatistica']['pendente']->abril}," .
-        "{$dash['estatistica']['pendente']->maio}," .
-        "{$dash['estatistica']['pendente']->junho}," .
-        "{$dash['estatistica']['pendente']->julho}," .
-        "{$dash['estatistica']['pendente']->agosto}," .
-        "{$dash['estatistica']['pendente']->setembro}," .
-        "{$dash['estatistica']['pendente']->outubro}," .
-        "{$dash['estatistica']['pendente']->novembro}," .
-        "{$dash['estatistica']['pendente']->dezembro}" .
-        "]";
-
-    ?>
     <!-- Scripts -->
     <script src="<?= theme("assets/js/core.min.js", CONF_VIEW_APP) ?>" data-provide="sweetalert chartjs"></script>
     <script src="<?= theme("assets/js/app.min.js", CONF_VIEW_APP) ?>"></script>
@@ -190,57 +157,7 @@
         Dropzone.autoDiscover = false;
         app.ready(function() {
 
-            var myChartjs = new Chart($("#chart-line-4"), {
-                type: 'line',
-                data: {
-                    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-                    datasets: [{
-                            label: "Coletados",
-                            fill: false,
-                            borderWidth: 3,
-                            pointRadius: 4,
-                            borderColor: "#36a2eb",
-                            backgroundColor: "#36a2eb",
-                            pointBackgroundColor: "#36a2eb",
-                            pointBorderColor: "#36a2eb",
-                            pointHoverBackgroundColor: "#fff",
-                            pointHoverBorderColor: "#36a2eb",
-                            data: <?= $data_coletado ?>
-                        },
-                        {
-                            label: "Pedentes",
-                            fill: false,
-                            borderWidth: 3,
-                            pointRadius: 4,
-                            borderColor: "#ff6384",
-                            backgroundColor: "#ff6384",
-                            pointBackgroundColor: "#ff6384",
-                            pointBorderColor: "#ff6384",
-                            pointHoverBackgroundColor: "#fff",
-                            pointHoverBorderColor: "#ff6384",
-                            data: <?= $data_pendente ?>
-                        }
-                        /* ,
-                                                {
-                                                    label: "Postados",
-                                                    fill: false,
-                                                    borderWidth: 3,
-                                                    pointRadius: 4,
-                                                    borderColor: "rgba(51,202,185,0.5)",
-                                                    backgroundColor: "rgba(51,202,185,0.5)",
-                                                    pointBackgroundColor: "rgba(51,202,185,0.5)",
-                                                    pointBorderColor: "rgba(51,202,185,0.5)",
-                                                    pointHoverBackgroundColor: "#fff",
-                                                    pointHoverBorderColor: "rgba(51,202,185,0.5)",
-                                                    data: [31, 23, 34, 22, 52, 63]
-                                                } */
-                    ]
-                },
-
-                // Options
-                //
-                options: {}
-            });
+            ready_statistic();
 
             var myDropzone = new Dropzone(".dropzone", {
                 url: "<?= url("app/processar/arquivo") ?>",
@@ -290,8 +207,6 @@
     <script src="<?= theme("assets/js/jquery.quicksearch.js", CONF_VIEW_APP) ?>"></script>
     <script type="application/javascript">
         jQuery(document).ready(function() {
-
-
 
             jQuery('#cmbCamposDisponiveis').multiSelect({
                 keepOrder: true,
@@ -365,6 +280,7 @@
                 TmpCamposOcultos = [];
                 //jQuery('#ModalNovoModelo').modal('hide');
             }
+
         });
 
         function SalvarModeloDeImportacao() {
@@ -454,6 +370,79 @@
                 footerVisible: false
             });
         });
+
+        function ready_statistic() {
+
+            let labels = [];
+            let datasets = [];
+            let dataset = [];
+
+            $.ajax({
+                url: "<?= url("/app/dashboard") ?>",
+                type: "POST",
+                dataType: "json",
+                beforeSend: function() {
+                    $(".ajax_load")
+                        .fadeIn(200)
+                        .css("display", "flex")
+                        .find(".ajax_load_box_title")
+                        .text("Aguarde, carregando dashboard...");
+                },
+                success: function(response) {
+                    let valores_coletados = [];
+                    let valores_pendentes = [];
+                    let dataset = [];
+
+                    for (let i in response['coletados'][<?= date('m') ?>][0]) {
+                        valores_coletados.push(response['coletados'][<?= date('m') ?>][0][i]);
+                    }
+
+                    for (let i in response['pendentes'][<?= date('m') ?>][0]) {
+                        valores_pendentes.push(response['pendentes'][<?= date('m') ?>][0][i]);
+                    }
+
+    
+                    new Chart($("#chart-line-5"), {
+                        type: 'bar',
+                        data: {
+                            labels: [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                            datasets: [{
+                                label: "Coletados",
+                                fill: false,
+                                borderWidth: 3,
+                                pointRadius: 4,
+                                borderColor: "#36a2eb",
+                                backgroundColor: "#36a2eb",
+                                pointBackgroundColor: "#36a2eb",
+                                pointBorderColor: "#36a2eb",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "#36a2eb",
+                                data: valores_coletados
+                            }, {
+                                label: "Pedentes",
+                                fill: false,
+                                borderWidth: 3,
+                                pointRadius: 4,
+                                borderColor: "#ff6384",
+                                backgroundColor: "#ff6384",
+                                pointBackgroundColor: "#ff6384",
+                                pointBorderColor: "#ff6384",
+                                pointHoverBackgroundColor: "#fff",
+                                pointHoverBorderColor: "#ff6384",
+                                data: valores_pendentes
+                            }]
+                        },
+                        options: {}
+                    });
+
+                    $(".ajax_load").fadeOut(200);
+
+                },
+                error: function() {
+                    $(".ajax_load").fadeOut();
+                }
+            });
+        }
     </script>
 
 </body>

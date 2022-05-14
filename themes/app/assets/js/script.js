@@ -284,9 +284,6 @@ app.ready(function() {
 
     $("[data-modal-confirm]").click(function(e) {
         e.preventDefault();
-
-
-
         let clicked = $(this);
         let data = clicked.data();
         let load = $(".ajax_load");
@@ -345,6 +342,82 @@ app.ready(function() {
         })
     });
 
+
+    $("[data-smonth]").click(function(e) {
+        var clicked = $(this);
+        var data = clicked.data();
+
+        let labels = [];
+        let datasets = [];
+        let dataset = [];
+
+        $.ajax({
+            url: data.action,
+            type: "POST",
+            dataType: "json",
+            data: data,
+            beforeSend: function() {
+                $(".ajax_load")
+                    .fadeIn(200)
+                    .css("display", "flex")
+                    .find(".ajax_load_box_title")
+                    .text("Aguarde, carregando dashboard...");
+            },
+            success: function(response) {
+
+                let valores_coletados = [];
+                let valores_pendentes = [];
+
+                for (let i in response['coletados'][data.vmonth][0]) {
+                    valores_coletados.push(response['coletados'][data.vmonth][0][i]);
+                }
+
+                for (let i in response['pendentes'][data.vmonth][0]) {
+                    valores_pendentes.push(response['pendentes'][data.vmonth][0][i]);
+                }
+
+
+                new Chart($("#chart-line-5"), {
+                    type: 'bar',
+                    data: {
+                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                        datasets: [{
+                            label: "Coletados",
+                            fill: false,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderColor: "#36a2eb",
+                            backgroundColor: "#36a2eb",
+                            pointBackgroundColor: "#36a2eb",
+                            pointBorderColor: "#36a2eb",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#36a2eb",
+                            data: valores_coletados
+                        }, {
+                            label: "Pedentes",
+                            fill: false,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderColor: "#ff6384",
+                            backgroundColor: "#ff6384",
+                            pointBackgroundColor: "#ff6384",
+                            pointBorderColor: "#ff6384",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#ff6384",
+                            data: valores_pendentes
+                        }]
+                    },
+                    options: {}
+                });
+
+                $(".ajax_load").fadeOut(200);
+
+            },
+            error: function() {
+                $(".ajax_load").fadeOut();
+            }
+        });
+    })
 
     $("[data-post]").click(function(e) {
         e.preventDefault();
@@ -515,8 +588,6 @@ app.ready(function() {
     | Import initialization of plugins that used in your application
     |
     */
-
-
 
     /*
      * Search in Theadmin components

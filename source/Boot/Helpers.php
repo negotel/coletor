@@ -1,32 +1,33 @@
 <?php
 
-function mes_extenso($mes)
+function month_in_full($month, $ucwords = false)
 {
-    switch ($mes) {
-        case 1:
-            return 'Janeiro';
-        case 2:
-            return 'Fevereiro';
-        case 3:
-            return 'Marco';
-        case 4:
-            return 'Abril';
-        case 5:
-            return 'Maio';
-        case 6:
-            return 'Junho';
-        case 7:
-            return 'Julho';
+    $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+    switch ($month) {
+        case 01:
+            return ($ucwords) ? ucwords('janeiro') : 'janeiro';
+        case 02:
+            return ($ucwords) ? ucwords('fevereiro') : 'fevereiro';
+        case 03:
+            return ($ucwords) ? ucwords('marco') : 'marco';
+        case 04:
+            return ($ucwords) ? ucwords('abril') : 'abril';
+        case 05:
+            return ($ucwords) ? ucwords('maio') : 'maio';
+        case 06:
+            return ($ucwords) ? ucwords('junho') : 'junho';
+        case 07:
+            return ($ucwords) ? ucwords('julho') : 'julho';
         case 8:
-            return 'Agosto';
+            return ($ucwords) ? ucwords('agosto') : 'agosto';
         case 9:
-            return 'Setembro';
+            return ($ucwords) ? ucwords('setembro') : 'setembro';
         case 10:
-            return 'Outubro';
+            return ($ucwords) ? ucwords('outubro') : 'outubro';
         case 11:
-            return 'Novembro';
+            return ($ucwords) ? ucwords('novembro') : 'novembro';
         case 12:
-            return 'Dezembro';
+            return ($ucwords) ? ucwords('dezembro') : 'dezembro';
     }
 }
 
@@ -35,7 +36,7 @@ function queryCountMonthData($field = 'id', $table, $field_referent = 'created_a
 {
     $fields_term = null;
     for ($i = 1; $i <= 12; $i++) {
-        $fields_term .= "(SELECT IFNULL(COUNT({$field}), 0) as " . mb_strtolower(mes_extenso($i)) . " FROM {$table} WHERE EXTRACT(month FROM {$field_referent}) = {$i} AND EXTRACT(year FROM {$field_referent}) = '" . $year . "' AND `status` = '{$status}') " . mb_strtolower(mes_extenso($i));
+        $fields_term .= "(SELECT IFNULL(COUNT({$field}), 0) as " . mb_strtolower(month_in_full($i)) . " FROM {$table} WHERE EXTRACT(month FROM {$field_referent}) = {$i} AND EXTRACT(year FROM {$field_referent}) = '" . $year . "' AND `status` = '{$status}') " . mb_strtolower(month_in_full($i));
         if ($i < 12) {
             $fields_term .= ',';
         }
