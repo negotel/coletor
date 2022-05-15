@@ -1,7 +1,7 @@
 <?php $v->layout("_theme"); ?>
 
 <div class="card card-round card-shadowed px-50 py-30 w-450px mb-0" style="max-width: 100%">
-    <h5 class="text-uppercase fw-500">Bem-vindo! 👋 Simon</h5>
+    <h5 class="text-uppercase fw-500">Bem-vindo! 👋</h5>
     <p><small>Faça login na sua conta e comece a aventurar</small></p>
     <div class="ajax_response"><?= flash(); ?></div>
     <form action="<?= url("/entrar"); ?>" method="post" enctype="multipart/form-data">
