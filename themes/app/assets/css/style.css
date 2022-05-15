@@ -4,6 +4,24 @@ font-roboto {
     font-weight: 400;
 }
 
+span.total {
+    display: inline-block;
+    height: 1em;
+    position: relative;
+    overflow: hidden;
+    background-color: #DDDBDD;
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%) !important;
+    border-radius: 5px !important;
+    background-size: 200% 100% !important;
+    animation: 1.5s shine linear infinite !important;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
+
 
 /* .topbar-inverse {
     background-image: linear-gradient(to right, #42E695 0%, #3BB2B8 50%, #42E695 100%) !important;
@@ -83,6 +101,10 @@ font-roboto {
     }
 }
 
+.card-loading {
+    display: none;
+}
+
 .ajax_load {
     display: none;
     position: fixed;
@@ -90,7 +112,7 @@ font-roboto {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 9999;
 }
 

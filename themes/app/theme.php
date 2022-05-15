@@ -111,10 +111,6 @@
     <main class="main-container">
         <div class="main-content">
             <div class="container">
-
-                <div class="col-xl-12">
-                    <?= flash(); ?>
-                </div>
                 <?= $v->section("content"); ?>
             </div>
         </div>
@@ -135,7 +131,7 @@
                                 <a class="nav-link" href="#">Sobre Nos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <a class="nav-link" href="#">Contato</a>
                             </li>
                         </ul>
                     </div>
@@ -156,9 +152,6 @@
     <script type="text/javascript">
         Dropzone.autoDiscover = false;
         app.ready(function() {
-
-            ready_statistic();
-
             var myDropzone = new Dropzone(".dropzone", {
                 url: "<?= url("app/processar/arquivo") ?>",
                 paramName: "file",
@@ -370,79 +363,6 @@
                 footerVisible: false
             });
         });
-
-        function ready_statistic() {
-
-            let labels = [];
-            let datasets = [];
-            let dataset = [];
-
-            $.ajax({
-                url: "<?= url("/app/dashboard") ?>",
-                type: "POST",
-                dataType: "json",
-                beforeSend: function() {
-                    $(".ajax_load")
-                        .fadeIn(200)
-                        .css("display", "flex")
-                        .find(".ajax_load_box_title")
-                        .text("Aguarde, carregando dashboard...");
-                },
-                success: function(response) {
-                    let valores_coletados = [];
-                    let valores_pendentes = [];
-                    let dataset = [];
-
-                    for (let i in response['coletados'][<?= date('m') ?>][0]) {
-                        valores_coletados.push(response['coletados'][<?= date('m') ?>][0][i]);
-                    }
-
-                    for (let i in response['pendentes'][<?= date('m') ?>][0]) {
-                        valores_pendentes.push(response['pendentes'][<?= date('m') ?>][0][i]);
-                    }
-
-    
-                    new Chart($("#chart-line-5"), {
-                        type: 'bar',
-                        data: {
-                            labels: [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
-                            datasets: [{
-                                label: "Coletados",
-                                fill: false,
-                                borderWidth: 3,
-                                pointRadius: 4,
-                                borderColor: "#36a2eb",
-                                backgroundColor: "#36a2eb",
-                                pointBackgroundColor: "#36a2eb",
-                                pointBorderColor: "#36a2eb",
-                                pointHoverBackgroundColor: "#fff",
-                                pointHoverBorderColor: "#36a2eb",
-                                data: valores_coletados
-                            }, {
-                                label: "Pedentes",
-                                fill: false,
-                                borderWidth: 3,
-                                pointRadius: 4,
-                                borderColor: "#ff6384",
-                                backgroundColor: "#ff6384",
-                                pointBackgroundColor: "#ff6384",
-                                pointBorderColor: "#ff6384",
-                                pointHoverBackgroundColor: "#fff",
-                                pointHoverBorderColor: "#ff6384",
-                                data: valores_pendentes
-                            }]
-                        },
-                        options: {}
-                    });
-
-                    $(".ajax_load").fadeOut(200);
-
-                },
-                error: function() {
-                    $(".ajax_load").fadeOut();
-                }
-            });
-        }
     </script>
 
 </body>

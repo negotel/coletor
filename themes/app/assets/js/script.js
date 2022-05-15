@@ -120,6 +120,12 @@ app.config({
 */
 app.ready(function() {
 
+    ready_statistic({
+        'search': false,
+        'action': document.querySelector('input#url-action').value,
+        'vmonth': document.querySelector('input#vmonth').value
+    });
+
     $("input[type=file]").change(function(e) {
         var file = this;
         if (file.files && file.files[0]) {
@@ -351,6 +357,8 @@ app.ready(function() {
         let datasets = [];
         let dataset = [];
 
+        ready_statistic(data);
+
         $.ajax({
             url: data.action,
             type: "POST",
@@ -410,6 +418,9 @@ app.ready(function() {
                     options: {}
                 });
 
+                document.querySelector('span#total').textContent = response['count_remessas'];
+                document.querySelector('span#total-collection').textContent = response['count_item_coletados'];
+                document.querySelector('span#total-open').textContent = response['count_item_abertos'];
                 $(".ajax_load").fadeOut(200);
 
             },
@@ -578,6 +589,92 @@ app.ready(function() {
 
     function extractLast(term) {
         return split(term).pop();
+    }
+
+
+    function ready_statistic(data = null) {
+
+        let labels = [];
+        let datasets = [];
+        let dataset = [];
+
+        $.ajax({
+            url: data.action,
+            type: "POST",
+            dataType: "json",
+            data: data,
+            beforeSend: function() {
+                $(".ajax_load")
+                    .fadeIn(200)
+                    .css("display", "flex")
+                    .find(".ajax_load_box_title")
+                    .text("Aguarde, carregando dashboard...");
+            },
+            success: function(response) {
+
+                let valores_coletados = [];
+                let valores_pendentes = [];
+                let dataset = [];
+
+                for (let i in response['coletados'][data.vmonth][0]) {
+                    valores_coletados.push(response['coletados'][data.vmonth][0][i]);
+                }
+
+                for (let i in response['pendentes'][data.vmonth][0]) {
+                    valores_pendentes.push(response['pendentes'][data.vmonth][0][i]);
+                }
+
+
+                new Chart($("#chart-line-5"), {
+                    type: 'bar',
+                    data: {
+                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                        datasets: [{
+                            label: "Coletados",
+                            borderColor: "#36a2eb",
+                            backgroundColor: "#36a2eb",
+                            pointBackgroundColor: "#36a2eb",
+                            pointBorderColor: "#36a2eb",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#36a2eb",
+                            data: valores_coletados
+                        }, {
+                            label: "Pedentes",
+                            borderColor: "#ff6384",
+                            backgroundColor: "#ff6384",
+                            pointBackgroundColor: "#ff6384",
+                            pointBorderColor: "#ff6384",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: "#ff6384",
+                            data: valores_pendentes
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                $('span#total').removeClass('total');
+                $('span#total-collection').removeClass('total');
+                $('span#total-open').removeClass('total');
+
+                document.querySelector('span#total').textContent = response['count_remessas'];
+                document.querySelector('span#total-collection').textContent = response['count_item_coletados'];
+                document.querySelector('span#total-open').textContent = response['count_item_abertos'];
+                $(".card-loading").css("display", "none");
+                $(".ajax_load").fadeOut(200);
+
+            },
+            error: function() {
+                $(".ajax_load").fadeOut();
+            }
+        });
     }
 
     /*

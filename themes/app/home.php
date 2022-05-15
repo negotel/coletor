@@ -1,28 +1,34 @@
 <?php $v->layout("theme"); ?>
 
 <div class="row">
+    <div class="col-md-6 col-lg-12">
+        <?= flash(); ?>
+    </div>
+</div>
+
+<div class="row">
 
     <div class="col-6 col-xl-3 cursor-pointer">
-        <div class="card card-round shadow-material-1">
+        <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-cubes fs-30 fw-500"></span><br>
                     <span class="fs-10 text-muted">em <?= month_in_full(date('m')) ?></span>
                     <h5 class="fw-500">Encomendas</h5>
-                    <span class="fs-30 fw-400"> <?= $dash['encomendas'] ?> </span>
+                    <span class="fs-30 fw-400 total" style="width:100px;height:25px;" id="total"></span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-6 col-xl-3 cursor-pointer text-info">
-        <div class="card card-round shadow-material-1">
+        <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-location-arrow fs-30 fw-500"></span><br>
                     <span class="fs-10 text-info">em <?= month_in_full(date('m')) ?></span>
                     <h5 class="fw-500 text-info">Coletado</h5>
-                    <span class="fs-30 fw-400 text-info"> <?= $dash['coletado'] ?> </span>
+                    <span class="fs-30 fw-400 text-info total" style="width:100px;height:25px;" id="total-collection"> &nbsp; </span>
                 </div>
             </div>
         </div>
@@ -35,20 +41,20 @@
                     <span class="fa fa-check-square fs-30 fw-500"></span><br>
                     <span class="fs-10  text-success">em <?= month_in_full(date('m')) ?></span>
                     <h5 class="fw-500 text-success">Postados</h5>
-                    <span class="fs-30 fw-400 text-success"> 0 </span>
+                    <span class="fs-30 fw-400 text-success "> 0 </span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-6 col-xl-3 cursor-pointer text-danger">
-        <div class="card card-round shadow-material-1">
+        <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-history fs-30 fw-500 text-danger"></span><br>
                     <span class="fs-10 text-danger">em <?= month_in_full(date('m')) ?></span>
                     <h5 class="fw-500 text-danger">Pendentes</h5>
-                    <span class="fs-30 fw-400 text-danger"> <?= $dash['pendente'] ?> </span>
+                    <span class="fs-30 fw-400 text-danger total" style="width:100px;height:25px;" id="total-open"> &nbsp; </span>
                 </div>
             </div>
         </div>
@@ -63,13 +69,11 @@
             <header class="card-header">
                 <h4 class="card-title fw-500">Estatística</h4>
                 <ul class="card-controls">
-                    <li><a class="card-btn-close" href="#"></a></li>
                     <li><a class="card-btn-slide rotate-180" href="#"></a></li>
-                    <li><a class="card-btn-fullscreen" href="#"></a></li>
                 </ul>
             </header>
 
-            <div class="card-content" style="display: block">
+            <div class="card-content">
                 <div class="card-body">
 
                     <div class="row">
@@ -90,11 +94,7 @@
                             <div class="row">
                                 <?php for ($range = 1; $range <= 12; $range++) : $dateRange = mb_strtolower(month_in_full($range, true)); ?>
                                     <p class="col-lg-2">
-                                        <button 
-                                        data-action="<?= url('/app/dashboard') ?>" 
-                                        data-smonth="search_statistic" 
-                                        class="btn btn-w-md <?= str_pad($range, 2, '0', STR_PAD_LEFT) == date('m') ? 'btn-info' : 'btn-secondary' ?>" 
-                                        data-vmonth="<?= $range ?>" data-vyear="<?= date('Y') ?>"><?= ucwords($dateRange) ?></button>
+                                        <button data-action="<?= url('/app/dashboard') ?>" data-smonth="search_statistic" class="btn btn-w-md <?= str_pad($range, 2, '0', STR_PAD_LEFT) == date('m') ? 'btn-info' : 'btn-secondary' ?>" data-vmonth="<?= $range ?>" data-vyear="<?= date('Y') ?>" data-search="true"><?= ucwords($dateRange) ?></button>
                                     </p>
                                 <?php endfor; ?>
                             </div>
@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body total">
                 <div class="row">
                     <div class="col-lg-12">
 
@@ -122,7 +122,7 @@
 
         </div>
     </div>
-    
+
     <div class="col-xl-12">
         <div class="card card-round shadow-material-1">
             <header class="card-header">
@@ -174,3 +174,6 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" id="url-action" value="<?php echo url('/app/dashboard') ?>">
+<input type="hidden" id="vmonth" value="<?php echo date('m') ?>">
