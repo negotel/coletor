@@ -3,8 +3,8 @@
 namespace Source\App\Admin;
 
 use Source\Models\Auth;
-use Source\Models\CafeApp\AppPlan;
-use Source\Models\CafeApp\AppSubscription;
+use Source\Models\AppPlan;
+use Source\Models\AppSubscription;
 use Source\Models\Category;
 use Source\Models\Post;
 use Source\Models\Report\Online;
@@ -75,11 +75,6 @@ class Dash extends Admin
                 "subscribers" => (new AppSubscription())->find("pay_status = :s", "s=active")->count(),
                 "plans" => (new AppPlan())->find("status = :s", "s=active")->count(),
                 "recurrence" => (new AppSubscription())->recurrence()
-            ],
-            "blog" => (object)[
-                "posts" => (new Post())->find("status = 'post'")->count(),
-                "drafts" => (new Post())->find("status = 'draft'")->count(),
-                "categories" => (new Category())->find("type = 'post'")->count()
             ],
             "users" => (object)[
                 "users" => (new User())->find("level < 5")->count(),

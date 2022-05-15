@@ -14,14 +14,6 @@
                 <p><b>Planos:</b> <?= $control->plans; ?></p>
                 <p><b>Recorrencia:</b> R$ <?= str_price($control->recurrence); ?></p>
             </article>
-
-            <article class="blog radius">
-                <h4 class="icon-pencil-square-o">Blog</h4>
-                <p><b>Artigos:</b> <?= $blog->posts; ?></p>
-                <p><b>Rascunhos:</b> <?= $blog->drafts; ?></p>
-                <p><b>Categorias:</b> <?= $blog->categories; ?></p>
-            </article>
-
             <article class="users radius">
                 <h4 class="icon-user">Usuários</h4>
                 <p><b>Usuários:</b> <?= $users->users; ?></p>

@@ -46,8 +46,6 @@
 
             echo $nav("home", "dash", "Dashboard");
             echo $nav("coffee", "control/home", "Control");
-            echo $nav("pencil-square-o", "blog/home", "Blog");
-            echo $nav("comments-o", "faq/home", "FAQs");
             echo $nav("user", "users/home", "Usuários");
             echo "<li class=\"dash_sidebar_nav_li\"><a class=\"icon-link\" href=\"" . url() . " \" target=\"_blank\">Ver site</a></li>";
 
