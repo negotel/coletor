@@ -368,9 +368,9 @@ class App extends Controller
     }
 
     /**
-     * @param array|null $data
-     * @throws \Exception
-     */
+        * @param array|null $data
+        * @throws \Exception
+    */
     public function profile(?array $data): void
     {
         if (!empty($data["update"])) {
@@ -419,16 +419,7 @@ class App extends Controller
             return;
         }
 
-        $head = $this->seo->render(
-            "Meu perfil - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/share.jpg"),
-            false
-        );
-
         echo $this->view->render("profile", [
-            "head" => $head,
             "user" => $this->user,
             "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) :
                 theme("/assets/images/avatar.jpg", CONF_VIEW_APP))

@@ -124,6 +124,46 @@ span.total {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
+
+/*NOT FOUND PAGE 404*/
+
+.not_found {
+    text-align: center;
+    color: #ccc;
+}
+
+.not_found .error {
+    font-size: 8em;
+    font-weight: var(--weight-light);
+    color: #cccccc;
+    margin-bottom: 40px;
+}
+
+.not_found_header {
+    width: 500px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.not_found p a {
+    color: var(--color-green);
+    text-decoration: none;
+    font-weight: var(--weight-bold);
+}
+
+.not_found p a:hover {
+    text-decoration: underline;
+}
+
+.not_found_btn {
+    display: inline-block;
+    margin-top: 60px;
+    padding: 20px 40px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: var(--weight-bold);
+}
+
 .ajax_load_box_circle {
     border: 16px solid #e3e3e3;
     border-top: 16px solid #465161;

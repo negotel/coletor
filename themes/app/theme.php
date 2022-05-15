@@ -93,7 +93,7 @@
                         <?php endif; ?>
                     </span>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="ti-user"></i> Profile</a>
+                        <a class="dropdown-item" href="<?= url('/app/perfil') ?>"><i class="ti-user"></i> Profile</a>
                         <a class="dropdown-item" href="#">
                             <div class="flexbox">
                                 <i class="ti-email"></i>
