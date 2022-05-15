@@ -175,5 +175,46 @@
     </div>
 </div>
 
+<div class="modal modal-center fade" id="modal-center" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h4 class="fw-500"><?php echo "Bem-vindo! 👋 <span class='text-info text-uppercase'>" . user()->first_name . " " . user()->last_name . "</span>!"; ?></h4>
+                    <p class="fs-14">
+                        Essa é uma nova versão do sistema. <br>
+                        A nova versão traz algumas melhoria para você, segue abaixo:
+                    </p>
+                </div>
+
+                <ul>
+                    <li>Novo visual mais elegante</li>
+                    <li>Performace excelente</li>
+                    <li>É mais seguraça</li>
+                </ul>
+            </div>
+            <div class="modal-footer flexbox flex-justified">
+
+                <div class="custom-controls-stacked">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="check" class="custom-control-input" id="cc-1" onclick="myChecked()">
+                        <label class="custom-control-label" for="cc-1">Não quero vê mais isso!</label>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="button" class="btn btn-bold btn-pure btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="url-action" value="<?php echo url('/app/dashboard') ?>">
 <input type="hidden" id="vmonth" value="<?php echo date('m') ?>">

@@ -1,6 +1,13 @@
 'use strict';
 
-
+function myChecked() {
+    var checkBoxs = document.getElementById("cc-1");
+    if (checkBoxs.checked == false) {
+        localStorage.setItem('modalNaoMostra', true)
+    } else {
+        localStorage.setItem('modalNaoMostra', false)
+    }
+}
 
 app.config({
 
@@ -105,9 +112,6 @@ app.config({
 });
 
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Is Ready
@@ -119,6 +123,8 @@ app.config({
 |
 */
 app.ready(function() {
+
+    var verModalDeAviso = localStorage.getItem("modalNaoMostra")
 
     ready_statistic({
         'search': false,
@@ -672,6 +678,9 @@ app.ready(function() {
                 $(".card-loading").css("display", "none");
                 $(".ajax_load").fadeOut(200);
 
+                if (verModalDeAviso !== "true") {
+                    $('#modal-center').modal('show');
+                }
             },
             error: function() {
                 $(".ajax_load").fadeOut();
@@ -736,10 +745,6 @@ app.ready(function() {
     | Import your main application code
     |
     */
-
-
-
-
     /*
      * Display a warning when the page opened using "file" protocol
      */
@@ -750,10 +755,6 @@ app.ready(function() {
             actionUrl: ''
         })
     }
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Color Changer
@@ -762,9 +763,7 @@ app.ready(function() {
     | This is a tiny code to implement color changer for our demonstrations.
     |
     */
-
     var demo_colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'purple', 'pink', 'cyan', 'yellow', 'brown', 'dark'];
-
 
     /*
      * Color changer using base pallet name
@@ -811,8 +810,6 @@ app.ready(function() {
             $(target).attr('class', baseClass + val);
         });
     });
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -878,9 +875,6 @@ app.ready(function() {
         $(".demo-icons-list li").show();
     });
 
-
-
-
     /*
      * Setting tab in the global quickview (#qv-global)
      */
@@ -911,9 +905,6 @@ app.ready(function() {
 
     });
 
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Sidebar
@@ -937,9 +928,6 @@ app.ready(function() {
         $('.sidebar-header').css('background-color', val);
     });
 
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Timeline
@@ -948,7 +936,6 @@ app.ready(function() {
     | Handle some behaviors in timelines demo page
     |
     */
-
 
     // Content position
     $(document).on('click', '#timeline-alignment-selector .btn', function() {
