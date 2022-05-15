@@ -34,75 +34,85 @@
         </div>
     </div>
 
+    <aside class="sidebar sidebar-color-info sidebar-icons-right sidebar-icons-boxed sidebar-expand-lg">
+
+        <header class="sidebar-header bg-info">
+            <span class="logo">
+                Erc - Sistema
+            </span>
+        </header>
+
+        <nav class="sidebar-navigation ps-container ps-theme-default" data-ps-id="1a7e4651-4c13-64d6-0ed8-a601513f55f9">
+
+            <ul class="menu menu-lg menu-bordery">
+                <li class="menu-category">Preview</li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="<?= url('/app') ?>">
+                        <span class="icon ti-home"></span>
+                        <span class="title">
+                            <span>Dashboard</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+            </div>
+            <div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;">
+                <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+            </div>
+        </nav>
+
+    </aside>
     <!-- Topbar -->
-    <header class="topbar topbar-expand-lg topbar-secondary topbar-inverse">
-        <div class="container">
-            <div class="topbar-left">
-                <span class="topbar-btn topbar-menu-toggler"><i>&#9776;</i></span>
 
-                <div class="topbar-brand">
-                    <h2 class="text-white fw-500">ConfControl</h2>
+    <header class="topbar">
+        <div class="topbar-left">
+            <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
+
+            <div class="topbar-divider d-none d-md-block"></div>
+
+            <div class="lookup d-none d-md-block topbar-search">
+                <input class="form-control w-300px" type="text">
+                <div class="lookup-placeholder">
+                    <i class="ti-search"></i>
+                    <span><strong>Pesquise</strong> Número do pedido, Nome destinatário.</span>
                 </div>
-
-                <div class="topbar-divider d-none d-md-block"></div>
-
-                <nav class="topbar-navigation">
-                    <ul class="menu">
-
-
-                        <li class="menu-item <?= (isset($menu) && $menu == 'home') ? 'active' : '' ?>">
-                            <a class="menu-link" href="<?= url('app') ?>">
-                                <span class="icon ti-home"></span>
-                                <span class="title">Dashboard</span>
-                            </a>
-                        </li>
-                        <!-- 
-
-                        <li class="menu-item <?= (isset($menu) && $menu == 'cadastros') ? 'active' : '' ?>">
-                            <a class="menu-link" href="#">
-                                <span class="icon ti-layout"></span>
-                                <span class="title">Cadastros</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="menu-submenu">
-                                <li class="menu-item">
-                                    <a class="menu-link" href="<?= url("/app/vendedor") ?>">
-                                        <span class="title">Vendedor</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="<?= url("/app/cliente") ?>">
-                                        <span class="title">Clientes</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="<?= url("/app/milhar") ?>">
-                                        <span class="title">Milhar</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class="menu-link" href="<?= url("/app/premio") ?>">
-                                        <span class="title">Premio</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
-                    </ul>
-                </nav>
             </div>
-            <div class="topbar-right">
+        </div>
 
-                <ul class="topbar-btns">
-                    <li class="dropdown">
-                        <span class="topbar-btn" data-toggle="dropdown"><img class="avatar" src="<?= theme("assets/img/avatar/1.jpg", CONF_VIEW_APP) ?>" alt="..."></span>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ti-user"></i> Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?= url("/app/sair"); ?>"><i class="ti-power-off"></i> Logout</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="topbar-right">
+
+            <ul class="topbar-btns">
+                <li class="dropdown">
+                    <span class="topbar-btn" data-toggle="dropdown">
+                        <?php if (user()->photo()) : ?>
+                            <img class="avatar" src="<?= image(user()->photo, 260, 260); ?>" />
+                        <?php else : ?>
+                            <img class="avatar" src="<?= theme("assets/img/avatar/1.jpg", CONF_VIEW_APP) ?>" alt="...">
+                        <?php endif; ?>
+                    </span>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#"><i class="ti-user"></i> Profile</a>
+                        <a class="dropdown-item" href="#">
+                            <div class="flexbox">
+                                <i class="ti-email"></i>
+                                <span class="flex-grow">Inbox</span>
+                                <span class="badge badge-pill badge-info">5</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= url('/app/sair') ?>"><i class="ti-power-off"></i> Logout</a>
+                    </div>
+                </li>
+
+                <!-- Notifications -->
+                <li class="dropdown d-none d-md-block">
+                    <span class="topbar-btn has-new" data-toggle="dropdown"><i class="ti-bell"></i></span>
+                </li>
+                <!-- END Notifications -->
+            </ul>
         </div>
     </header>
     <!-- END Topbar -->

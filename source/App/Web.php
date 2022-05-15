@@ -19,7 +19,7 @@ class Web extends Controller
      */
     public function __construct()
     {
-        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
+        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/v2/");
 
         (new Access())->report();
         (new Online())->report();
@@ -69,15 +69,7 @@ class Web extends Controller
             return;
         }
 
-        $head = $this->seo->render(
-            "Entrar - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url("/entrar"),
-            theme("/assets/images/share.jpg")
-        );
-
         echo $this->view->render("auth-login", [
-            "head" => $head,
             "cookie" => filter_input(INPUT_COOKIE, "authEmail")
         ]);
     }
@@ -294,23 +286,6 @@ class Web extends Controller
                 "fb" => "Lead",
                 "aw" => "AW-953362805/yAFTCKuakIwBEPXSzMYD"
             ]
-        ]);
-    }
-
-    /**
-     * SITE TERMS
-     */
-    public function terms(): void
-    {
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " - Termos de uso",
-            CONF_SITE_DESC,
-            url("/termos"),
-            theme("/assets/images/share.jpg")
-        );
-
-        echo $this->view->render("terms", [
-            "head" => $head
         ]);
     }
 

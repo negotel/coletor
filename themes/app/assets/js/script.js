@@ -663,10 +663,12 @@ app.ready(function() {
                 $('span#total').removeClass('total');
                 $('span#total-collection').removeClass('total');
                 $('span#total-open').removeClass('total');
+                $('span#total-posted').removeClass('total');
 
                 document.querySelector('span#total').textContent = response['count_remessas'];
                 document.querySelector('span#total-collection').textContent = response['count_item_coletados'];
                 document.querySelector('span#total-open').textContent = response['count_item_abertos'];
+                document.querySelector('span#total-posted').textContent = 0;
                 $(".card-loading").css("display", "none");
                 $(".ajax_load").fadeOut(200);
 

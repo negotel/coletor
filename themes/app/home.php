@@ -21,40 +21,40 @@
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer text-info">
+    <div class="col-6 col-xl-3 cursor-pointer">
         <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-location-arrow fs-30 fw-500"></span><br>
-                    <span class="fs-10 text-info">em <?= month_in_full(date('m')) ?></span>
-                    <h5 class="fw-500 text-info">Coletado</h5>
-                    <span class="fs-30 fw-400 text-info total" style="width:100px;height:25px;" id="total-collection"> &nbsp; </span>
+                    <span class="fs-10">em <?= month_in_full(date('m')) ?></span>
+                    <h5 class="fw-500">Coletado</h5>
+                    <span class="fs-30 fw-400 total" style="width:100px;height:25px;" id="total-collection"></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer text-success">
+    <div class="col-6 col-xl-3 cursor-pointer">
         <div class="card card-round shadow-material-1">
             <div class="card-body">
                 <div class="text-center">
                     <span class="fa fa-check-square fs-30 fw-500"></span><br>
-                    <span class="fs-10  text-success">em <?= month_in_full(date('m')) ?></span>
-                    <h5 class="fw-500 text-success">Postados</h5>
-                    <span class="fs-30 fw-400 text-success "> 0 </span>
+                    <span class="fs-10">em <?= month_in_full(date('m')) ?></span>
+                    <h5 class="fw-500">Postados</h5>
+                    <span class="fs-30 fw-400 total" style="width:100px;height:25px;" id="total-posted"></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer text-danger">
+    <div class="col-6 col-xl-3 cursor-pointer">
         <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">
-                    <span class="fa fa-history fs-30 fw-500 text-danger"></span><br>
-                    <span class="fs-10 text-danger">em <?= month_in_full(date('m')) ?></span>
-                    <h5 class="fw-500 text-danger">Pendentes</h5>
-                    <span class="fs-30 fw-400 text-danger total" style="width:100px;height:25px;" id="total-open"> &nbsp; </span>
+                    <span class="fa fa-history fs-30 fw-500"></span><br>
+                    <span class="fs-10">em <?= month_in_full(date('m')) ?></span>
+                    <h5 class="fw-500">Pendentes</h5>
+                    <span class="fs-30 fw-400 total" style="width:100px;height:25px;" id="total-open"></span>
                 </div>
             </div>
         </div>
