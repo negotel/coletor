@@ -31,6 +31,17 @@ function month_in_full($month, $ucwords = false)
     }
 }
 
+function first_last_day_of_the_month($d = "now")
+{
+    $rdate = new stdClass;
+    $date = new DateTime($d);
+
+    $rdate->first_day = $date->format("Y-m-01");
+    $rdate->last_day = $date->format("Y-m-t");
+
+    return $rdate;
+}
+
 
 function queryCountMonthData($field = 'id', $table, $field_referent = 'created_at', $status, $year): string
 {

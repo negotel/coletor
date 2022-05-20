@@ -124,13 +124,16 @@ app.config({
 */
 app.ready(function() {
 
-    var verModalDeAviso = localStorage.getItem("modalNaoMostra")
+    var verModalDeAviso = localStorage.getItem("modalNaoMostra");
+    let urlaction = document.querySelector('input#url-action');
 
-    ready_statistic({
-        'search': false,
-        'action': document.querySelector('input#url-action').value,
-        'vmonth': document.querySelector('input#vmonth').value
-    });
+    if (urlaction) {
+        ready_statistic({
+            'search': false,
+            'action': document.querySelector('input#url-action').value,
+            'vmonth': document.querySelector('input#vmonth').value
+        });
+    }
 
     $("input[type=file]").change(function(e) {
         var file = this;
@@ -294,7 +297,150 @@ app.ready(function() {
         title: 'Enter username'
     });
 
+    $("[data-confirm-transference]").click(function(event) {
+
+        event.preventDefault();
+        let clicked = $(this);
+        let data = clicked.data();
+        let load = $(".ajax_load");
+
+        swal({
+            title: "Confirmação de Transferencia",
+            text: 'para transferir este objeto informe o numero da remessa no qual que transferir',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            inputPlaceholder: 'Numero da Remessa',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Informe o numero da remessa que deseja transferir'
+                }
+            }
+        }).then(function(e) {
+            console.log(e);
+            if (e.value) {
+                $.ajax({
+                    url: data.action,
+                    type: "POST",
+                    data: e,
+                    dataType: "json",
+                    beforeSend: function() {
+                        $(".ajax_load")
+                            .fadeIn(200)
+                            .css("display", "flex")
+                            .find(".ajax_load_box_title")
+                            .text('Aguarde, processando dados...');
+                    },
+                    success: function(response) {
+                        load.fadeOut(200);
+                        if (response.result) {
+                            toast('success', response.message);
+                            return false;
+                        }
+
+
+                        //reload
+                        if (response.reload) {
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 500)
+                        } else {
+                            load.fadeOut(200);
+                        }
+
+                        toast(response.type, response.message);
+                    },
+                    error: function() {
+                        toast('error', 'Ops, algo de errado aconteceu ao execulta dados.');
+                        load.fadeOut();
+                    }
+                });
+                return false;
+            }
+
+            if (e.dismiss == 'cancel') {
+                abrirModal(data.urlPrint);
+            }
+            return false;
+        }, function(dismiss) {
+            load.fadeOut(200);
+        })
+    });
+
+
+    $("[data-confirm-cancel]").click(function(e) {
+
+        e.preventDefault();
+        let clicked = $(this);
+        let data = clicked.data();
+        let load = $(".ajax_load");
+
+        let title = (data.title == undefined || data.title == "" ? 'Modal sem Titutlo' : data.title);
+
+        app.modaler({
+            url: data.action,
+            type: 'top',
+            title: title,
+            cancelVisible: true,
+            cancelText: 'Cancelar',
+            confirmText: 'Confirmar',
+            onConfirm: function(modal) {
+                let observacoes_cancelamento = document.querySelector('textarea');
+                console.log(modal);
+                if (observacoes_cancelamento.value == undefined || observacoes_cancelamento.value == "") {
+                    toast('error', 'Informe o motivo do cancelamento');
+                    return false;
+                }
+
+                console.log(data);
+
+                let object = data;
+                let object1 = { 'observacoes_cancelamento': observacoes_cancelamento.value };
+                let data_set = Object.assign(object, object1);
+
+                $.ajax({
+                    url: data.action,
+                    type: "POST",
+                    data: data_set,
+                    dataType: "json",
+                    beforeSend: function() {
+                        $(".ajax_load")
+                            .fadeIn(200)
+                            .css("display", "flex")
+                            .find(".ajax_load_box_title")
+                            .text('Aguarde, processando dados...');
+                    },
+                    success: function(response) {
+                        load.fadeOut(200);
+
+                        if (response.result) {
+                            toast('success', response.message);
+                            return false;
+                        }
+
+
+                        //reload
+                        if (response.reload) {
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 500)
+                        } else {
+                            load.fadeOut(200);
+                        }
+
+                        toast(response.type, response.message);
+                    },
+                    error: function() {
+                        toast('error', 'Ops, algo de errado aconteceu ao execulta dados.');
+                        load.fadeOut();
+                    }
+                });
+                return false;
+            }
+        });
+    });
     $("[data-modal-confirm]").click(function(e) {
+
         e.preventDefault();
         let clicked = $(this);
         let data = clicked.data();
@@ -502,59 +648,6 @@ app.ready(function() {
         }, function(dismiss) {
             load.fadeOut(200);
         })
-    });
-
-    $("[data-proc]").click(function(e) {
-        e.preventDefault();
-
-        var clicked = $(this);
-        var data = clicked.data();
-        var id_premio = $("input[name='id_premio']").val();
-        var id = (id_premio == null) ? 0 : id_premio;
-
-        var load = $(".ajax_load");
-
-        $.ajax({
-            url: data.proc + "/" + id,
-            type: "POST",
-            data: data,
-            dataType: "json",
-            beforeSend: function() {
-                if (data.ajax_load === true) {
-                    $(".ajax_load")
-                        .fadeIn(200)
-                        .css("display", "flex")
-                        .find(".ajax_load_box_title")
-                        .text(data.message);
-                } else {
-                    load.fadeIn(200).css("display", "flex");
-                }
-            },
-            success: function(response) {
-                //redirect
-                if (response.redirect) {
-                    window.location.href = response.redirect;
-                } else {
-                    load.fadeOut(200);
-                }
-
-                //reload
-                if (response.reload) {
-                    window.location.reload();
-                } else {
-                    load.fadeOut(200);
-                }
-
-                //message
-                if (response.message) {
-                    ajaxMessage(response.message, ajaxResponseBaseTime);
-                }
-            },
-            error: function() {
-                ajaxMessage(ajaxResponseRequestError, 5);
-                load.fadeOut();
-            }
-        });
     });
 
     $('[data-typeahead]').keyup(function(event) {

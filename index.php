@@ -52,6 +52,16 @@ $route->get("/obrigado/{email}", "Web:success");
 $route->group("/app");
 $route->get("/", "App:home");
 $route->get("/importacao", "App:import");
+$route->get("/pedidos/pendentes", "App:objects_pending");
+$route->get("/pedidos/pendentes/{first_day}/{last_day}", "App:objects_pending");
+
+
+$route->get("/cancelar/item/{id}", "App:item_cancel");
+$route->post("/cancelar/item/{id}", "App:item_cancel_action");
+$route->post("/transferir/item/{id}", "App:item_transfer_action");
+
+
+
 $route->get("/criar/template/importacao", "App:create_template");
 $route->get("/remessa/{remessa}", "App:remessa");
 $route->get("/remessa/adicionar/{remessa}", "App:import");

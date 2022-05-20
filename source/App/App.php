@@ -89,6 +89,87 @@ class App extends Controller
         ]);
     }
 
+    public function objects_pending(?array $data): void
+    {
+
+        $first = (!empty($data['first_day'])) ? $data['first_day'] : first_last_day_of_the_month()->first_day;
+        $last = (!empty($data['last_day'])) ? $data['last_day'] : first_last_day_of_the_month()->last_day;
+        $itens_pending = (new AppConferenceItem())->find("data_log BETWEEN '{$first}' AND '{$last}' AND status = :status", "status=aberto")->fetch(true);
+
+        echo $this->view->render("pages/itens_pending", [
+            'itens' => $itens_pending
+        ]);
+    }
+
+    public function item_cancel(?array $data)
+    {
+        echo $this->view->render("pages/itens_pending_form", []);
+    }
+
+    public function item_cancel_action(?array $data)
+    {
+        $itemCancel = (new AppConferenceItem())->findById($data['id']);
+        if (!$itemCancel) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'Você tentou gerenciar um item que não existe']);
+            return;
+        }
+
+        if (empty($data['observacoes_cancelamento'])) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'Informe o motivo do cancelamento do objeto']);
+            return;
+        }
+
+        $itemCancel->status = 'cancelado';
+        $itemCancel->observacoes_cancelamento = $data['observacoes_cancelamento'];
+
+        if (!$itemCancel->save()) {
+            $json["message"] = $itemCancel->message()->render();
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => $itemCancel->message()->render()]);
+            return;
+        }
+
+        echo json_encode(["reload" => true, 'type' => 'success', 'message' => 'Objeto cancelado com sucesso...']);
+        return;
+    }
+
+    public function item_transfer_action(?array $data)
+    {
+
+        if (empty($data['value'])) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'Informe o numero da remessa para concluir a transferencia!']);
+            return;
+        }
+
+
+        $itemTransfer = (new AppConferenceItem())->findById($data['id']);
+        if (!$itemTransfer) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'Você tentou gerenciar um item que não existe']);
+            return;
+        }
+
+        $remessUpdate = (new AppConference())->find("client_id = :cid AND remessa = :rms", "cid={$this->user->client_id}&rms={$data['value']}")->fetch();
+        if (!$remessUpdate) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'A remessa informada não existe ou foi excluida']);
+            return;
+        }
+
+        if ($itemTransfer->remessa == $remessUpdate->remessa) {
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => 'Esse objeto ja pertence a mesma remessa que esta tentando trasferir.']);
+            return;
+        }
+
+        $itemTransfer->remessa = $data['value'];
+
+        if (!$itemTransfer->save()) {
+            $json["message"] = $itemTransfer->message()->render();
+            echo json_encode(["reload" => true, 'type' => 'error', 'message' => $itemTransfer->message()->render()]);
+            return;
+        }
+
+        echo json_encode(["reload" => true, 'type' => 'success', 'message' => 'Objeto transferido com sucesso...']);
+        return;
+    }
+
     public function import(?array $data): void
     {
         $head = $this->seo->render(
@@ -108,13 +189,6 @@ class App extends Controller
 
     public function remessa(?array $data)
     {
-        $head = $this->seo->render(
-            "Olá {$this->user->first_name}. Vamos controlar? - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/share.jpg"),
-            false
-        );
 
         $remessa = (new AppConference())->getRemessa($data['remessa'], $this->user, false);
         if (!$remessa) {
@@ -125,7 +199,6 @@ class App extends Controller
         $itens = (new AppConferenceItem())->itens($remessa);
 
         echo $this->view->render("remessa_itens", [
-            "head" => $head,
             "remessa" => $remessa,
             'nremessa' => $data['remessa'],
             'itens' => $itens
@@ -368,9 +441,9 @@ class App extends Controller
     }
 
     /**
-        * @param array|null $data
-        * @throws \Exception
-    */
+     * @param array|null $data
+     * @throws \Exception
+     */
     public function profile(?array $data): void
     {
         if (!empty($data["update"])) {

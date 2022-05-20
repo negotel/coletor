@@ -5,6 +5,23 @@
         <?= flash(); ?>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6 col-lg-12">
+        <div class="card card-round shadow-material-1 is-loading">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3 class="text-success font-dosis fw-500">Seja bem-vindo(a) de volta  </h3>
+                        <span>IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro e ativar todos os recursos.</span>
+                    </div>
+                    <div class="col-md-2">
+                        <img height="80" src="<?= theme("assets/img/man-with-laptop-light.png", CONF_VIEW_APP) ?>" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
 
@@ -47,7 +64,7 @@
         </div>
     </div>
 
-    <div class="col-6 col-xl-3 cursor-pointer">
+    <div class="col-6 col-xl-3 cursor-pointer" onclick="location.href='<?=url('/app/pedidos/pendentes/'.first_last_day_of_the_month()->first_day.'/'.first_last_day_of_the_month()->last_day)?>'">
         <div class="card card-round shadow-material-1 is-loading">
             <div class="card-body">
                 <div class="text-center">

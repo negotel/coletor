@@ -124,6 +124,10 @@ span.total {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
+.modal-title {
+    text-transform: uppercase !important;
+}
+
 
 /*NOT FOUND PAGE 404*/
 
