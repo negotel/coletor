@@ -8,15 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REMESSA - <?= $nremessa; ?></title>
     <style>
+       
         table {
+            font-family: 'Consolas', Courier, monospace;
             border-collapse: collapse;
             width: 100%;
         }
 
         .tcontent th {
-            background: rgb(66, 230, 149);
-            background: linear-gradient(90deg, rgba(66, 230, 149, 1) 0%, rgba(59, 178, 184, 1) 50%, rgba(66, 230, 149, 1) 100%);
-            color: white;
+            color: black;
         }
 
         th,
@@ -55,6 +55,7 @@
         <tr class="tcontent">
             <th class="count">&nbsp;</th>
             <th style="text-align: left; font-size: 10px" class="nome">NOME</th>
+            <th style="text-align: left; font-size: 10px" class="numero">CEP</th>
             <th style="text-align: left; font-size: 10px" class="numero">N PEDIDO</th>
             <th style="text-align: left; font-size: 10px" class="status">STATUS</th>
         </tr>
@@ -65,7 +66,8 @@
             ?>
                 <tr style="border: 1px solid #000">
                     <td style="text-align: left; font-size: 10px" class="count"><?php echo $remessa->id; ?></td>
-                    <td style="text-align: left; font-size: 10px" class="nome"><b><?php echo $remessa->nome; ?></b></td>
+                    <td style="text-align: left; font-size: 10px" class="nome"><?php echo $remessa->nome; ?></td>
+                    <td style="text-align: left; font-size: 10px" class="numero"><?php echo $remessa->cep; ?></td>
                     <td style="text-align: left; font-size: 10px" class="numero"><?php echo $remessa->n_pedido; ?></td>
                     <td style="text-align: left; font-size: 10px" class="status"><?php echo $remessa->status; ?></td>
                 </tr>

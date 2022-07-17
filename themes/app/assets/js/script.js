@@ -439,6 +439,7 @@ app.ready(function() {
             }
         });
     });
+    
     $("[data-modal-confirm]").click(function(e) {
 
         e.preventDefault();
