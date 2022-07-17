@@ -76,7 +76,7 @@
                 endforeach; 
             ?>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td style="text-align: right;"><b>Total Coletado: </b> <b><?=$total?></b></td>
             </tr>
         <?php else : ?>
